@@ -166,7 +166,11 @@ return [
         /*
          * Package Service Providers...
          */
-
+	    JeroenG\Packager\PackagerServiceProvider::class,
+	    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+	    Nwidart\Modules\LaravelModulesServiceProvider::class,
+	    Modules\Core\Providers\CoreEventServiceProvider::class,
+	    Modules\Core\Providers\CoreServiceProvider::class,
         //
 
         /*
@@ -177,6 +181,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+
 
     ],
 
@@ -225,6 +231,10 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+
+	    //Custom
+        'Module' => Nwidart\Modules\Facades\Module::class,
 
     ],
 
