@@ -5,3 +5,5 @@
 Homestead.json
 Homestead.yaml
 .env
+/resources/assets/core
+/public/assets/core

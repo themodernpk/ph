@@ -55,5 +55,6 @@ class Kernel extends HttpKernel
         'core.frontend' => \Modules\Core\Http\Middleware\CoreFrontend::class,
         'core.frontend.login' => \Modules\Core\Http\Middleware\CoreFrontendLogin::class,
         'core.frontend.register' => \Modules\Core\Http\Middleware\CoreFrontendRegister::class,
+        'core.backend' => \Modules\Core\Http\Middleware\CoreBackend::class,
     ];
 }

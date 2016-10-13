@@ -15,7 +15,7 @@ class CreateCoreActivitiesTable extends Migration
         Schema::create('core_activities', function (Blueprint $table) {
             $table->increments('id');
 	        $table->string('type')->nullable();
-	        $table->string('slug')->unique()->nullable();
+	        $table->string('label')->nullable();
 	        $table->string('title')->nullable();
 	        $table->text('meta')->nullable();
 	        $table->string('table_name')->nullable();

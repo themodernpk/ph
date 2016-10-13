@@ -17,7 +17,7 @@ class CreateCoreUsersTable extends Migration
 	        $table->string('name')->nullable();
 	        $table->string('email')->unique();
 	        $table->string('username', 20)->unique()->nullable();
-	        $table->integer('mobile')->unique()->nullable();
+	        $table->string('mobile')->unique()->nullable();
 	        $table->string('password');
 	        $table->integer('country_calling_code')->nullable();
 	        $table->enum('gender', ["m", "f", "o"])->nullable();

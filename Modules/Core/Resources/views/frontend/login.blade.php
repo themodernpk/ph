@@ -1,26 +1,76 @@
 @extends('core::layouts.frontend_form')
 
 @section('form')
-<form method="post" action="#" autocomplete="off">
-    <div class="form-group form-material floating">
-        <input type="email" class="form-control" autocomplete="off"
-               onfocus="this.removeAttribute('readonly');" readonly
-               name="email" />
-        <label class="floating-label">Email</label>
-    </div>
-    <div class="form-group form-material floating">
-        <input type="password" class="form-control"
-               onfocus="this.removeAttribute('readonly');" readonly
-               name="password" />
-        <label class="floating-label">Password</label>
-    </div>
-    <div class="form-group clearfix">
-        <div class="checkbox-custom checkbox-inline checkbox-primary checkbox-lg pull-left">
-            <input type="checkbox" id="inputCheckbox" name="remember">
-            <label for="inputCheckbox">Remember me</label>
+
+
+    <form method="post" action="{{URL::route('core.frontend.authenticate')}}" autocomplete="off">
+
+        <div class="form-group form-material floating" data-plugin="formMaterial">
+            <input type="text" class="form-control"
+                   onfocus="this.removeAttribute('readonly');" readonly
+                   name="email"/>
+            <label class="floating-label">Email</label>
         </div>
-        <a class="pull-right" href="forgot-password.html">Forgot password?</a>
-    </div>
-    <button type="submit" class="btn btn-primary btn-block btn-lg margin-top-40">Sign in</button>
-</form>
+
+        <div class="form-group form-material floating" data-plugin="formMaterial">
+            <input type="password" class="form-control"
+                   onfocus="this.removeAttribute('readonly');" readonly
+                   name="password"/>
+            <label class="floating-label">Password</label>
+        </div>
+
+        <div class="form-group clearfix">
+            <div class="checkbox-custom checkbox-inline checkbox-primary checkbox-lg pull-left">
+                <input type="checkbox" id="inputCheckbox" name="remember">
+                <label for="inputCheckbox">Remember me</label>
+            </div>
+            <a class="pull-right" href="forgot-password.html">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg margin-top-40">Sign In</button>
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    </form>
+
+@endsection
+
+
+@section("page_specific_footer")
+    <script>
+       /* $(document).ready(function () {
+            $("form").submit(function (e) {
+                e.preventDefault();
+                var url = $(this).attr('action');
+                var method = $(this).attr('method');
+                var data = $(this).serialize();
+                console.log(data);
+                console.log(url);
+
+                $.ajax({
+                    type: method,
+                    url: url,
+                    data: data,
+                    context: this,
+                    success: function (response) {
+                        console.log(response);
+                        if (response.status == "failed") {
+                            $.each(response.errors, function (key, data) {
+                                var input = 'input[name=' + key + ']';
+                                $('body').find(input).closest('.form-material')
+                                        .addClass("has-danger");
+                                alertify.error(data);
+                            })
+                        } else if(response.status == 'success')
+                        {
+                            if(response.redirect)
+                            {
+                                window.location.replace(response.redirect)
+                            }
+
+                        }
+                    }
+                });
+            });
+        });*/
+    </script>
+
 @endsection

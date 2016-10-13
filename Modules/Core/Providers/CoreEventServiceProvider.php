@@ -2,7 +2,9 @@
 
 namespace Modules\Core\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+
 use Modules\Core\Observers\RoleObserver;
 use Modules\Core\Observers\UserObserver;
 use Modules\Core\Entities\User;
@@ -17,8 +19,20 @@ class CoreEventServiceProvider extends ServiceProvider
      */
     protected $defer = false;
 
+	//---------------------------------------------
+
+	protected $listen = [
+		'Modules\Core\Events\UserLoggedIn' => [
+			'Modules\Core\Events\Handlers\OnUserLoggedIn',
+		],
+	];
+
+	//---------------------------------------------
+
 	public function boot()
 	{
+		parent::boot();
+
 		User::observe(UserObserver::class);
 		Role::observe(RoleObserver::class);
 	}

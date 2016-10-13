@@ -16,6 +16,8 @@
                         <img class="brand-img" src="{{assetsCoreMmenu()}}/images/logo-blue.png" alt="...">
                         <h2 class="brand-text font-size-18">{{Config::get('core.name')}} v{{Config::get('core.version')}}</h2>
                     </div>
+                    @include("core::layouts.partials.frontend.flash")
+                    @include("core::layouts.partials.frontend.errors")
                     @yield('form')
                 </div>
             </div>

@@ -2,8 +2,6 @@
 
 @section('form')
 
-    @include("core::layouts.partials.frontend.errors")
-
     <form method="post" action="{{URL::route('core.frontend.register.store')}}" autocomplete="off">
 
         <div class="form-group form-material floating" data-plugin="formMaterial">
@@ -47,6 +45,7 @@
                 var method = $(this).attr('method');
                 var data = $(this).serialize();
                 console.log(data);
+                console.log(url);
 
                 $.ajax({
                     type: method,
@@ -62,6 +61,13 @@
                                         .addClass("has-danger");
                                 alertify.error(data);
                             })
+                        } else if(response.status == 'success')
+                        {
+                            if(response.redirect)
+                            {
+                                window.location.replace(response.redirect)
+                            }
+
                         }
                     }
                 });

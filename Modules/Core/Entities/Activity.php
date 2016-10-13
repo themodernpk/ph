@@ -3,10 +3,10 @@
 namespace Modules\Core\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Activity extends Model
 {
-	use Notifiable;
 	use SoftDeletes;
 
 	//-------------------------------------------------
@@ -23,6 +23,11 @@ class Activity extends Model
 		'type', 'slug', 'title', 'meta', 'table_name', 'table_id',
 		'created_by', 'updated_by', 'deleted_by'
 	];
+	//-------------------------------------------------
+	public function setLabelAttribute($value)
+	{
+		$this->attributes['label'] = strtoupper($value);
+	}
 	//-------------------------------------------------
 	public function scopeCreatedBy($query, $user_id)
 	{

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCoreNotificationsTable extends Migration
+class CreateCoreEmailAlertsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,15 @@ class CreateCoreNotificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('core_notifications', function (Blueprint $table) {
-	        $table->uuid('id')->primary();
+        Schema::create('core_email_alerts', function (Blueprint $table) {
+	        $table->increments('id');
 	        $table->string('type')->nullable();
 	        $table->string('label')->nullable();
 	        $table->integer('core_user_id')->nullable();
-	        $table->string('title')->nullable();
-	        $table->string('details')->nullable();
-	        $table->string('link')->nullable();
+	        $table->string('from')->nullable();
+	        $table->string('to')->nullable();
+	        $table->string('subject')->nullable();
+	        $table->text('message')->nullable();
 	        $table->text('meta');
 	        $table->timestamp('read_at')->nullable();
 	        $table->timestamps();
@@ -33,6 +34,6 @@ class CreateCoreNotificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('core_notifications');
+        Schema::dropIfExists('core_email_alerts');
     }
 }

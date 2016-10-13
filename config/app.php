@@ -169,9 +169,12 @@ return [
 	    JeroenG\Packager\PackagerServiceProvider::class,
 	    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 	    Nwidart\Modules\LaravelModulesServiceProvider::class,
-	    Modules\Core\Providers\CoreEventServiceProvider::class,
+	    Creativeorange\Gravatar\GravatarServiceProvider::class,
+
 	    Modules\Core\Providers\CoreServiceProvider::class,
-        //
+	    Modules\Core\Providers\CoreEventServiceProvider::class,
+
+	    //
 
         /*
          * Application Service Providers...
@@ -235,6 +238,7 @@ return [
 
 	    //Custom
         'Module' => Nwidart\Modules\Facades\Module::class,
+        'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
 
     ],
 

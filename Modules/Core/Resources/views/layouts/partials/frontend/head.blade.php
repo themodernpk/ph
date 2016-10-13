@@ -24,7 +24,7 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="{{assetsCoreGlobal()}}/fonts/web-icons/web-icons.min.css">
     <link rel="stylesheet" href="{{assetsCoreGlobal()}}/fonts/brand-icons/brand-icons.min.css">
-    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
+    {{--<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>--}}
     <!--[if lt IE 9]>
     <script src="{{assetsCoreGlobalVendor()}}/html5shiv/html5shiv.min.js"></script>
     <![endif]-->

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use Modules\Core\Entities\Premission;
 
 
 
@@ -35,6 +36,17 @@ class User extends Authenticatable
 	protected $hidden = [
 		'password', 'remember_token',
 	];
+
+	//-------------------------------------------------
+	public function setNameAttribute($value)
+	{
+		$this->attributes['name'] = ucwords($value);
+	}
+	//-------------------------------------------------
+	public function setEmailAttribute($value)
+	{
+		$this->attributes['email'] = strtolower($value);
+	}
 	//-------------------------------------------------
 	public function scopeEnabled($query)
 	{
@@ -138,7 +150,8 @@ class User extends Authenticatable
 	{
 		return $this->hasManyThrough(
 			'Modules\Core\Entities\Permission',
-			'Modules\Core\Entities\Role'
+			'Modules\Core\Entities\Role',
+			'core_permission_id', 'core_role_id', 'id'
 		);
 	}
 	//-------------------------------------------------
@@ -191,12 +204,65 @@ class User extends Authenticatable
 			'name' => 'required|string|max:255',
 			'email' => 'required|email|unique:core_users|max:255',
 			'mobile' => 'required|unique:core_users|max:10',
+			'username' => 'unique:core_users|max:20',
 			'password' => 'required|max:255',
 		];
 
 		return $rules;
 	}
 	//-------------------------------------------------
+	public function scopeHasPermission($query, $permission_slug)
+	{
+		return $query->whereHas('role', function ($sub_query){
+			$sub_query->where('slug', '=', 'admin');
+		});
+	}
+	//-------------------------------------------------
+	public function hasRole($role_slug)
+	{
+		foreach ($this->roles()->get() as $role)
+		{
+			if ($role->slug == $role_slug)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	//-------------------------------------------------
+	public function isAdmin()
+	{
+		return $this->hasRole('admin');
+	}
+	//-------------------------------------------------
+	public function hasPermission($permission_slug)
+	{
+		//check if permission exist or not
+		$permission = Permission::where('slug', $permission_slug)->first();
+
+		if(!$permission)
+		{
+			$permission = new Permission();
+			$permission->slug =  str_slug($permission_slug);
+			$permission->name = str_replace("-", " ", $permission_slug);
+			$permission->enable = 1;
+			$permission->save();
+		}
+
+		if($this->isAdmin())
+		{
+			return true;
+		}
+
+		foreach ($this->permissions()->get() as $permission)
+		{
+			if ($permission->slug == $permission_slug)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	//-------------------------------------------------
 
 
