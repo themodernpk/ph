@@ -1,0 +1,15 @@
+{
+    "name": "Ph",
+    "alias": "ph",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Ph\\Providers\\PhServiceProvider"
+    ],
+    "aliases":{},
+    "files": [
+        "start.php"
+    ]
+}

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 use Modules\Core\Entities\User;
 use Modules\Core\Entities\Role;
+use Modules\Core\Entities\Module;
 use Validator;
 
 
@@ -26,6 +27,9 @@ class DashboardController extends Controller
 	{
 		$this->data->body_class = "dashboard";
 		$this->data->title = "Dashboard";
+
+
+
 		return view( 'core::backend.dashboard' )->with( 'data', $this->data );
 	}
 	//--------------------------------------------------------

@@ -237,7 +237,7 @@ return [
 
 
 	    //Custom
-        'Module' => Nwidart\Modules\Facades\Module::class,
+        'NwidartModule' => Nwidart\Modules\Facades\Module::class,
         'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
 
     ],

@@ -4,7 +4,7 @@
     <div class="dropdown-menu" role="menu">
         <div class="mega-content">
             <div class="row">
-
+                {{ loadExtendableView("mega_menu") }}
             </div>
         </div>
     </div>

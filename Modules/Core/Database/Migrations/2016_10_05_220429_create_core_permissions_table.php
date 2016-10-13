@@ -16,6 +16,7 @@ class CreateCorePermissionsTable extends Migration
             $table->increments('id');
 	        $table->string('name');
 	        $table->string('slug')->unique();
+	        $table->string('prefix')->nullable();
 	        $table->string('details')->nullable();
 	        $table->boolean('enable')->default(0);
 	        $table->integer('created_by')->nullable();

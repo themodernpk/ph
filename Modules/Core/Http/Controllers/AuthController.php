@@ -57,7 +57,7 @@ class AuthController extends Controller
 		    )], $remember
 		    ))
 	    {
-	    	if(!Auth::user()->hasPermission('backend-login'))
+	    	if(!Auth::user()->hasPermission('core', 'backend-login'))
 		    {
 			    $response['status'] = 'failed';
 			    $response['errors'][] = getConstant('permission.denied');

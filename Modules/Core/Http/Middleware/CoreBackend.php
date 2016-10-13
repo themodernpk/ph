@@ -35,7 +35,7 @@ class CoreBackend
 		                     ->withErrors([getConstant("account.disabled")]);
 	    }
 	    //check user have permission to back login
-	    if(!Auth::user()->hasPermission('backend-login'))
+	    if(!Auth::user()->hasPermission('core', 'backend-login'))
 	    {
 		    return redirect()->guest(route('core.frontend.login'))
 		                     ->withErrors([getConstant("permission.denied")]);

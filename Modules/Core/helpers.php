@@ -21,13 +21,20 @@ function assetsCoreMmenu() {
 	return $asset;
 }
 //---------------------------------------------------
-function getModuleExtendOrder()
+function loadExtendableView($view_name)
 {
-	$list = Module::all();
-	echo "<pre>";
-	print_r( json_encode($list) );
-	echo "</pre>";
-
+	$modules = new Modules\Core\Entities\Module();
+	$modules = $modules->enabled()->slugs()->toArray();
+	$view = "";
+	foreach ($modules as $item)
+	{
+		$full_view_name = $item.'::backend.extendable.'.$view_name;
+		if(View::exists($full_view_name))
+		{
+			$view  .= View::make($full_view_name);
+		}
+	}
+	echo $view;
 }
 //---------------------------------------------------
 //---------------------------------------------------

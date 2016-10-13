@@ -235,17 +235,21 @@ class User extends Authenticatable
 		return $this->hasRole('admin');
 	}
 	//-------------------------------------------------
-	public function hasPermission($permission_slug)
+	public function hasPermission($prefix, $permission_slug)
 	{
+
 		//check if permission exist or not
-		$permission = Permission::where('slug', $permission_slug)->first();
+		$permission = Permission::where('slug', $permission_slug)
+			->where('prefix', $prefix)
+			->first();
 
 		if(!$permission)
 		{
 			$permission = new Permission();
 			$permission->slug =  str_slug($permission_slug);
 			$permission->name = str_replace("-", " ", $permission_slug);
-			$permission->enable = 1;
+			$permission->prefix = $prefix;
+			$permission->enable = 0;
 			$permission->save();
 		}
 
@@ -256,7 +260,10 @@ class User extends Authenticatable
 
 		foreach ($this->permissions()->get() as $permission)
 		{
-			if ($permission->slug == $permission_slug)
+			if ($permission->slug == $permission_slug
+			    && $permission->prefix == $prefix
+				&& $permission->enable = 1
+			)
 			{
 				return true;
 			}

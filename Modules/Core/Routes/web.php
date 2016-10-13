@@ -31,9 +31,15 @@ Route::group(
 		     ->name('core.frontend.authenticate')
 		     ->middleware(['core.frontend.login']);
 		//------------------------------------------------
+		Route::any('/modules/sync/db', 'CoreController@modulesSyncWithDb')
+		     ->name('core.backend.modules.sync');
+		//------------------------------------------------
+		//------------------------------------------------
 		Route::get('/logout', 'AuthController@logout')
 		     ->name('core.backend.logout')
 			->middleware(['core.backend']);
+		//------------------------------------------------
+		//------------------------------------------------
 		//------------------------------------------------
 
 	});

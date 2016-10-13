@@ -16,8 +16,13 @@ class CreateCoreModulesTable extends Migration
             $table->increments('id');
 	        $table->string('name')->nullable();
 	        $table->string('slug')->unique()->nullable();
+	        $table->smallInteger('version_major')->nullable();
+	        $table->smallInteger('version_minor')->nullable();
+	        $table->smallInteger('version_revision')->nullable();
+	        $table->smallInteger('version_build')->nullable();
 	        $table->string('details')->nullable();
-	        $table->string('enable')->nullable(0);
+	        $table->text('meta')->nullable();
+	        $table->string('enable')->nullable();
             $table->timestamps();
         });
     }
