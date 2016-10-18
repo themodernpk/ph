@@ -21,9 +21,24 @@ class Permission extends Model
 	//-------------------------------------------------
 
 	protected $fillable = [
-		'name', 'slug', 'details', 'enable',
+		'name', 'slug', 'details', 'enable', 'prefix',
 		'created_by', 'updated_by', 'deleted_by'
 	];
+	//-------------------------------------------------
+	public function setNameAttribute($value)
+	{
+		$this->attributes['name'] = ucwords(str_replace("-", " ", $value));
+	}
+	//-------------------------------------------------
+	public function setSlugAttribute($value)
+	{
+		$this->attributes['slug'] = str_slug($value);
+	}
+	//-------------------------------------------------
+	public function setPrefixAttribute($value)
+	{
+		$this->attributes['prefix'] = strtolower($value);
+	}
 	//-------------------------------------------------
 	public function scopeEnabled($query)
 	{

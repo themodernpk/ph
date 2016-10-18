@@ -23,18 +23,28 @@ function assetsCoreMmenu() {
 //---------------------------------------------------
 function loadExtendableView($view_name)
 {
-	$modules = new Modules\Core\Entities\Module();
-	$modules = $modules->enabled()->slugs()->toArray();
-	$view = "";
-	foreach ($modules as $item)
-	{
-		$full_view_name = $item.'::backend.extendable.'.$view_name;
-		if(View::exists($full_view_name))
+
+		$modules = new Modules\Core\Entities\Module();
+		$modules = $modules->enabled()->slugs()->toArray();
+		$view = "";
+		foreach ($modules as $item)
 		{
-			$view  .= View::make($full_view_name);
+			$full_view_name = $item.'::backend.extendable.'.$view_name;
+			if(View::exists($full_view_name))
+			{
+				try{
+				$view  .= View::make($full_view_name);
+					echo $view;
+				}catch(Exception $e)
+				{
+					echo  json_encode($e->getMessage());
+				}
+			}
 		}
-	}
-	echo $view;
+
+
+
+
 }
 //---------------------------------------------------
 //---------------------------------------------------

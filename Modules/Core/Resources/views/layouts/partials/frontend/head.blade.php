@@ -2,7 +2,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <title>@if(isset($title)){{$title}}@else{{Config::get('core.name')}} v{{Config::get('core.version')}}@endif</title>
+    <title>@if(isset($data->title)){{$data->title}}@else{{Config::get('core.name')}} v{{Config::get('core.version')}}@endif</title>
     <!--common head-->
     <link rel="apple-touch-icon" href="{{assetsCoreMmenu()}}/images/apple-touch-icon.png">
     <link rel="shortcut icon" href="{{assetsCoreMmenu()}}/images/favicon.ico">

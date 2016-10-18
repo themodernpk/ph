@@ -246,8 +246,8 @@ class User extends Authenticatable
 		if(!$permission)
 		{
 			$permission = new Permission();
-			$permission->slug =  str_slug($permission_slug);
-			$permission->name = str_replace("-", " ", $permission_slug);
+			$permission->slug =  $permission_slug;
+			$permission->name = $permission_slug;
 			$permission->prefix = $prefix;
 			$permission->enable = 0;
 			$permission->save();
@@ -270,6 +270,30 @@ class User extends Authenticatable
 		}
 		return false;
 	}
+	//-------------------------------------------------
+	public static function avatar($id)
+	{
+
+		try{
+			$user = User::find($id);
+			$image = \Gravatar::fallback(assetsCoreMmenu()."/images/user.png")->get($user->email);
+			$file_headers = @get_headers($image);
+			if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+				$image = assetsCoreMmenu()."/images/user.png";
+			}
+
+		}catch(Exception $e)
+		{
+		    $image = assetsCoreMmenu()."/images/user.png";
+		}
+
+		return $image;
+
+	}
+
+	//-------------------------------------------------
+	//-------------------------------------------------
+	//-------------------------------------------------
 	//-------------------------------------------------
 
 

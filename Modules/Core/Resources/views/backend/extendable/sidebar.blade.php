@@ -7,9 +7,10 @@
         </div>
     </a>
 </li>
+@if(Auth::user()->hasPermission("core", "backend-admin-menu"))
 <li class="site-menu-item has-sub">
     <a href="javascript:void(0)">
-        <i class="site-menu-icon wb-layout" aria-hidden="true"></i>
+        <i class="site-menu-icon wb-briefcase" aria-hidden="true"></i>
         <span class="site-menu-title">Core</span>
         <span class="site-menu-arrow"></span>
     </a>
@@ -31,3 +32,4 @@
         </li>
     </ul>
 </li>
+@endif
