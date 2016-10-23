@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 @include("core::layouts.partials.frontend.head")
-<body class="@if(isset($data->body_class)){{$data->body_class}}@endif">
+<body class="@if(isset($data->body_class)){{$data->body_class}}@endif" >
 <!---content-->
 @yield('content')
 <!--/content-->

@@ -7,3 +7,5 @@ Homestead.yaml
 .env
 /resources/assets/theme
 /public/assets/theme
+/bower_components
+/storage

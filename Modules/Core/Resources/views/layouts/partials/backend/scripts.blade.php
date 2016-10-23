@@ -45,8 +45,7 @@
 
 
 <!-- Page -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.0.3/vue-resource.min.js"></script>
+<script src="{{asset("assets/bower/bower.js")}}"></script>
 
 
 <script>
