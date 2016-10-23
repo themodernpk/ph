@@ -26,7 +26,7 @@
             </a>
         </li>
         <li class="site-menu-item">
-            <a class="animsition-link" href="layouts/grids.html">
+            <a class="animsition-link" href="{{route("core.backend.permissions")}}">
                 <span class="site-menu-title">Permissions</span>
             </a>
         </li>

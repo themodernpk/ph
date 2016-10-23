@@ -7,17 +7,17 @@ function moduleAssets($name) {
 }
 //---------------------------------------------------
 function assetsCoreGlobal() {
-	$asset = asset("assets/core/global");
+	$asset = asset("assets/theme/global");
 	return $asset;
 }
 //---------------------------------------------------
 function assetsCoreGlobalVendor() {
-	$asset = asset("assets/core/global/vendor");
+	$asset = asset("assets/theme/global/vendor");
 	return $asset;
 }
 //---------------------------------------------------
 function assetsCoreMmenu() {
-	$asset = asset("assets/core/mmenu/assets");
+	$asset = asset("assets/theme/mmenu/assets");
 	return $asset;
 }
 //---------------------------------------------------

@@ -249,9 +249,16 @@ class User extends Authenticatable
 			$permission->slug =  $permission_slug;
 			$permission->name = $permission_slug;
 			$permission->prefix = $prefix;
-			$permission->enable = 0;
+			$permission->enable = 1;
 			$permission->save();
 		}
+
+
+		if($permission->enable == 0)
+		{
+			return false;
+		}
+
 
 		if($this->isAdmin())
 		{

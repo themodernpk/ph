@@ -74,15 +74,21 @@ Route::group(
 	[
 		'middleware' => ['web', 'core.backend'],
 		'prefix' => 'core/backend',
-		'namespace' => 'Modules\Core\Http\Controllers\Backend'
+		'namespace' => 'Modules\Core\Http\Controllers'
 	],
 	function()
 	{
 		Route::get('/dashboard', 'DashboardController@index')
 		     ->name('core.backend.dashboard');
 		//------------------------------------------------
-
+		Route::get('/permissions', 'PermissionsController@index')
+		     ->name('core.backend.permissions');
 		//------------------------------------------------
+		Route::get('/permissions/list', 'PermissionsController@getList')
+		     ->name('core.backend.permissions.list');
+		//------------------------------------------------
+		Route::get('/permissions/search', 'PermissionsController@search')
+		     ->name('core.backend.permissions.search');
 		//------------------------------------------------
 		//------------------------------------------------
 
