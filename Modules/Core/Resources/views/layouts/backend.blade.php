@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 @include("core::layouts.partials.backend.head")
-<body id="vueApp" class="@if(isset($data->body_class)){{$data->body_class}}@endif animsition site-navbar-small" >
+<body class="@if(isset($data->body_class)){{$data->body_class}}@endif animsition site-navbar-small" >
 
 @include("core::layouts.partials.backend.header")
 
@@ -18,5 +18,6 @@
 <!---page specific-->
 @yield('page_specific_footer')
 <!--/page specific-->
+
 </body>
 </html>

@@ -17,6 +17,8 @@
         <div class="page-header">
 
 
+
+
             @{{message}}
 
             <input name="message" v-model="message"/>

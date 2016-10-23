@@ -11,19 +11,16 @@ var app = new Vue({
     el: '#vueApp',
     data: {
         url_list: url_list,
-        message: null
+        message: url_list
     },
-    ready: function ()
+    created: function ()
     {
-        console.log("testing");
+        console.log("checking");
     },
     methods: {
 
         fetchList: function () {
             console.log(this.url_list);
-
-
-
         }
         //-----------------------------------------------------------------
         //-----------------------------------------------------------------

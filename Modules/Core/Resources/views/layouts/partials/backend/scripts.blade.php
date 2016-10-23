@@ -48,6 +48,7 @@
 <script src="{{asset("assets/bower/bower.js")}}"></script>
 
 
+
 <script>
     (function(document, window, $) {
         'use strict';
