@@ -22,7 +22,7 @@ class CoreFrontendRegister
     	//check admin role & user exist
 	    $role = new Role();
 	    $user = new User();
-	    $role = $role->getBySlug('admin');
+	    $role = $role->slug('admin')->first();
 	    $admins = $user->countAdmins();
 	    if($role['status'] == 'success' && $admins > 0)
 	    {

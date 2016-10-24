@@ -15,7 +15,6 @@
     "tests"
   ],
   "dependencies": {
-    "vue": "1.0.28",
-    "vue-resource": "*"
+    "paging": "^1.2.0"
   }
 }

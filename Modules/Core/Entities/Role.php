@@ -41,7 +41,7 @@ class Role extends Model
 	//-------------------------------------------------
 	public function scopeSlug($query, $slug)
 	{
-		return $query->where('slug', $slug);
+		return $query->where('slug', '=', $slug);
 	}
 	//-------------------------------------------------
 	public function scopeCreatedBy($query, $user_id)
@@ -88,19 +88,7 @@ class Role extends Model
 		);
 	}
 	//-------------------------------------------------
-	public function getBySlug($slug)
-	{
-		try {
-			$role = Role::where('slug', $slug)->firstOrFail();
-			$response['status'] = 'success';
-			$response['data'] = $role;
-			return $response;
-		} catch (\Exception $e) {
-			$response['status'] = 'failed';
-			$response['errors'][] = $e->getMessage();
-			return $response;
-		}
-	}
+
 	//-------------------------------------------------
 	//-------------------------------------------------
 	//-------------------------------------------------

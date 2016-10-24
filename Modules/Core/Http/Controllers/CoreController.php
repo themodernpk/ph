@@ -11,11 +11,6 @@ class CoreController extends Controller
 {
 
 	//--------------------------------------------------------
-    public function index()
-    {
-        return view('core::public.login');
-    }
-
 	//--------------------------------------------------------
 	public function modulesSyncWithDb()
 	{

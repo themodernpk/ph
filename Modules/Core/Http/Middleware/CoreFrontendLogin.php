@@ -22,7 +22,7 @@ class CoreFrontendLogin
     	//check admin role & user exist
 	    $role = new Role();
 	    $user = new User();
-	    $role = $role->getBySlug('admin');
+	    $role = $role->slug('admin')->first();
 	    $admins = $user->countAdmins();
 	    if($role['status'] == 'failed' || empty($admins))
 	    {

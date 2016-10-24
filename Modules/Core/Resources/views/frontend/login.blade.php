@@ -5,6 +5,7 @@
 
     <form method="post" action="{{URL::route('core.frontend.authenticate')}}" autocomplete="off">
 
+
         <div class="form-group form-material floating" data-plugin="formMaterial">
             <input type="text" class="form-control"
                    onfocus="this.removeAttribute('readonly');" readonly
@@ -29,6 +30,11 @@
 
         <button type="submit" class="btn btn-primary btn-block btn-lg margin-top-40">Sign In</button>
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+        @if(isset($data->session['redirect_url']))
+            <input type="hidden" name="redirect_url" value="{{ $data->session['redirect_url'] }}"/>
+            @endif
+
     </form>
 
 @endsection

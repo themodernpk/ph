@@ -3,7 +3,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 
-    <meta name="csrf-token" id="token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" id="_token" content="{{ csrf_token() }}">
 
     <title>@if(isset($data->title)){{$data->title}}@else{{Config::get('core.name')}} v{{Config::get('core.version')}}@endif</title>
     <!--common head-->
@@ -22,9 +22,14 @@
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/flag-icon-css/flag-icon.css">
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/ladda/ladda.css">
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/alertify/alertify.css">
-    <link rel="stylesheet" href="{{assetsCoreMmenu()}}/examples/css/advanced/alertify.css"
+    <link rel="stylesheet" href="{{assetsCoreMmenu()}}/examples/css/advanced/alertify.css">
+    <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/nprogress/nprogress.css">
+    <link rel="stylesheet" href="{{asset("assets/core/css/backend-common.css")}}">
+
+
 
     <!-- Fonts -->
+    <link rel="stylesheet" href="{{assetsCoreGlobal()}}/fonts/font-awesome/font-awesome.css">
     <link rel="stylesheet" href="{{assetsCoreGlobal()}}/fonts/web-icons/web-icons.min.css">
     <link rel="stylesheet" href="{{assetsCoreGlobal()}}/fonts/brand-icons/brand-icons.min.css">
     {{--<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>--}}

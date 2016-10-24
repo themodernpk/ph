@@ -28,9 +28,6 @@
                 var html = crudModule.templateItem(response.data);
                 $("#list").html(html);
                 crudModule.handlePagination(response);
-                if (s != "") {
-                    $("#list").highlight(s);
-                }
             });
         },
         //----------------------------------------
@@ -176,6 +173,8 @@
                 console.log("done");
                 var text = $(this).val();
                 crudModule.fetchList();
+                console.log("text", text);
+                $("body").highlight(text);
             });
         },
         //----------------------------------------

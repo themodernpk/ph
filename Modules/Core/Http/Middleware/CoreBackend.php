@@ -24,6 +24,10 @@ class CoreBackend
 		    if ($request->ajax()) {
 			    return response('Unauthorized.', 401);
 		    } else {
+			    $url = url()->full();
+			    session(['redirect_url' => $url]);
+
+
 			    return redirect()->guest(route('core.frontend.login'))
 				    ->withErrors([getConstant("login.required")]);
 		    }

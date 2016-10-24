@@ -20,9 +20,11 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+
     }
 
     /**

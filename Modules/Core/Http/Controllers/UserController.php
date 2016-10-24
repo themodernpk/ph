@@ -17,14 +17,17 @@ class UserController extends Controller {
 	}
 
 	//--------------------------------------------------------
-	public function index(Request $request) {
+	public function index( Request $request ) {
+		$this->data->session    = session()->all();
 		$this->data->body_class = "animsition page-login-v3 layout-full";
+
 		return view( 'core::frontend.login' )->with( 'data', $this->data );
 	}
 
 	//--------------------------------------------------------
 	public function register() {
 		$this->data->body_class = "animsition page-login-v3 layout-full";
+
 		return view( 'core::frontend.register' )->with( 'data', $this->data );
 	}
 
@@ -47,7 +50,7 @@ class UserController extends Controller {
 		try {
 			//check if admin role exist
 			$role     = new Role();
-			$findRole = $role->getBySlug( 'admin' );
+			$findRole = $role->slug( 'admin' )->first();
 			if ( $findRole['status'] == 'failed' ) {
 				$role->name   = 'Admin';
 				$role->slug   = str_slug( $role->name );
