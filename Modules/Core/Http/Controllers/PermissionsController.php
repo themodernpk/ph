@@ -28,38 +28,15 @@ class PermissionsController extends Controller {
 	//------------------------------------------------------
 	public function getList( Request $request ) {
 		$list = Permission::withCount( [ 'roles' ] );
-		if ( $request->has( "s" ) ) {
+		if ( $request->has( "s" ) )
+		{
 			$list->where( "name", "like", "%" . $request->get( 's' ) . "%" )
 			     ->orWhere( "prefix", "like", "%" . $request->get( 's' ) . "%" );
 		}
+		$config = \Config::get("core");
 		$list->orderBy("created_at", 'desc');
-		$data = $list->paginate( 2 );
-
+		$data = $list->paginate( $config['settings']->records_per_page );
 		return response()->json( $data );
-	}
-
-	//------------------------------------------------------
-	public function create() {
-		return view( 'core::create' );
-	}
-
-	//------------------------------------------------------
-	public function store( Request $request ) {
-
-
-	}
-
-	//------------------------------------------------------
-	public function edit() {
-		return view( 'core::edit' );
-	}
-
-	//------------------------------------------------------
-	public function update( Request $request ) {
-	}
-
-	//------------------------------------------------------
-	public function destroy() {
 	}
 
 	//------------------------------------------------------
@@ -107,11 +84,6 @@ class PermissionsController extends Controller {
 		    $response['errors'][] = $e->getMessage();
 		    return response()->json($response);
 		}
-
-
-
-
-
 	}
 	//------------------------------------------------------
 }

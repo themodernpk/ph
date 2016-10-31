@@ -14,7 +14,6 @@
         },
         //----------------------------------------
         fetchList: function (page) {
-            console.log(this.data);
             var url = this.data.url.list;
             if (page === undefined) {
                 url += "page=1";

@@ -48,13 +48,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="pull-xs-right m-l-10 hidden-sm-down">
-                                <div class="btn-group" aria-label="Basic example" role="group">
-                                    <button type="button" class="btn btn-outline btn-default">
-                                        <i class="icon wb-share" aria-hidden="true"></i>Trashed
-                                    </button>
-                                </div>
-                            </div>
+
                             <div class="pull-xs-right ">
                                 <div class="form-group">
                                     <div class="input-search">

@@ -90,7 +90,5 @@ Route::group(
 		Route::any( '/permissions/read/{id}', 'PermissionsController@read' )
 		     ->name( 'core.backend.permissions.read' );
 		//------------------------------------------------
-		Route::any( '/permissions/store', 'PermissionsController@store' )
-		     ->name( 'core.backend.permissions.store' );
 		//------------------------------------------------
 	} );
