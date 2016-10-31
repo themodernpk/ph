@@ -1,36 +1,26 @@
 (function (document, window, $) {
     'use strict';
-    var PermissionModule = {
+    var CrudModule = {
         data: {},
+
         //----------------------------------------
-        init: function () {
-            var current_url = $("input[name=url_current]").val();
-            this.data.url = {
-                current: current_url,
-                list: current_url+"/list/?",
-                read: current_url+"/read/",
-                toggle: current_url+"/toggle/"
-            };
-        },
-        //----------------------------------------
-        fetchList: function (page) {
-            console.log(this.data);
-            var url = this.data.url.list;
+        fetchList: function (url_list)
+        {
             if (page === undefined) {
-                url += "page=1";
+                url_list += "page=1";
             } else {
-                url += "page=" + page;
+                url_list += "page=" + page;
             }
             var s = $(".search").val();
             if (s != "") {
-                url += "&s=" + s;
+                url_list += "&s=" + s;
             }
             $.ajax({
-                url: url,
+                url: url_list,
             }).done(function (response) {
-                var html = PermissionModule.templateItem(response.data);
+                var html = crudModule.templateItem(response.data);
                 $("#list").html(html);
-                PermissionModule.handlePagination(response);
+                crudModule.handlePagination(response);
                 if (s != "") {
                     $("#list").highlight(s);
                 }
@@ -64,7 +54,7 @@
                         <td class="hidden-sm-down">` + object.slug + `</td>
                         <td class="hidden-sm-down">` + object.roles_count + `</td>
                         <td>
-                        <a href="`+PermissionModule.data.url.read+object.id+`"
+                        <a href="`+crudModule.data.url.read+object.id+`"
                         class="btn btn-sm btn-icon btn-flat btn-default slide-panel">
                             <i class="icon wb-eye" aria-hidden="true"></i>
                           </a>
@@ -76,7 +66,7 @@
         },
         //----------------------------------------
         handlePagination: function (data) {
-            PermissionModule.handleSelectAllReset();
+            crudModule.handleSelectAllReset();
             var total = parseFloat(data.total);
             $(".pagination_con").paging(total, {
                 format: '[< nncnn >]',
@@ -85,7 +75,7 @@
                 page: data.current_page,
                 onSelect: function (page) {
                     if (page != data.current_page) {
-                        PermissionModule.fetchList(page);
+                        crudModule.fetchList(page);
                     }
                 },
                 onFormat: function (type) {
@@ -114,7 +104,7 @@
             $("body").on("click", ".enableToggle", function (e) {
                 e.preventDefault();
                 var id = $(this).closest("tr").attr("data-id");
-                PermissionModule.handleToggleEnable(id);
+                crudModule.handleToggleEnable(id);
             });
         },
         //----------------------------------------
@@ -127,7 +117,7 @@
             NProgress.start();
             $.ajax({
                 method: "POST",
-                url: PermissionModule.data.url.toggle,
+                url: crudModule.data.url.toggle,
                 data: data,
                 async: true,
                 context: this
@@ -158,7 +148,7 @@
                 var list = $("#list").find(".selectable-item");
                 $.each(list, function (index, item) {
                     var id = $(item).closest("tr").attr("data-id");
-                    PermissionModule.handleToggleEnable(id, 0);
+                    crudModule.handleToggleEnable(id, 0);
                 });
             });
         },
@@ -169,22 +159,22 @@
                 var list = $("#list").find(".selectable-item");
                 $.each(list, function (index, item) {
                     var id = $(item).closest("tr").attr("data-id");
-                    PermissionModule.handleToggleEnable(id, 1);
+                    crudModule.handleToggleEnable(id, 1);
                 });
             });
         },
         //----------------------------------------
         handleSearch: function () {
-            $("body").on("keyup blur", ".search", function (e) {
+            $("body").on("keyup, blur", ".search", function (e) {
                 e.preventDefault();
-                PermissionModule.fetchList();
+                crudModule.fetchList();
             });
         },
         //----------------------------------------
         handleDelete: function () {
             $("body").on("click", ".deleteItem", function (e) {
                 e.preventDefault();
-                PermissionModule.fetchList();
+                crudModule.fetchList();
             });
         },
         //----------------------------------------
@@ -218,7 +208,7 @@
     };
     //-------------------------------------------
     $(document).ready(function () {
-        PermissionModule.run();
+        CrudModule.run();
     });
     //-------------------------------------------
     //-------------------------------------------

@@ -1,10 +1,11 @@
 @extends('core::layouts.backend')
 
+@section("page_specific_head")
+    <link rel="stylesheet" href="{{asset("assets/core/css/asScrollable.css")}}">
+@endsection
+
 @section("page_specific_footer")
     <script src="{{moduleAssets('core')}}/permissions.js"></script>
-
-
-
 @endsection
 
 @section('content')
@@ -13,6 +14,7 @@
     <div class="page">
         <!--header-->
         <div class="page-header">
+            <input type="hidden" name="url_current" value="{{url()->current()}}">
         </div>
         <!--header-->
         <!--content-->

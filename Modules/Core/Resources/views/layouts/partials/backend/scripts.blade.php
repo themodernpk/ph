@@ -52,10 +52,10 @@
 <script src="{{assetsCoreGlobal()}}/js/Plugin/ladda.js"></script>
 <script src="{{assetsCoreGlobal()}}/js/Plugin/nprogress.js"></script>
 
+
+
+
 <script src="{{asset("assets/core/js/jquery.highlight.js")}}"></script>
 <script src="{{asset("assets/bower/bower.js")}}"></script>
-
-<script>
-    alertify.logPosition("bottom right");
-</script>
+<script src="{{asset("assets/core/js/backend-common.js")}}"></script>
 

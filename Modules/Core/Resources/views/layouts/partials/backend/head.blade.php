@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{assetsCoreMmenu()}}/css/site.min.css">
     <!-- Plugins -->
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/animsition/animsition.css">
+    <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/asscrollable/asScrollable.css">
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/switchery/switchery.css">
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/intro-js/introjs.css">
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/slidepanel/slidePanel.css">
@@ -24,6 +25,7 @@
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/alertify/alertify.css">
     <link rel="stylesheet" href="{{assetsCoreMmenu()}}/examples/css/advanced/alertify.css">
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/nprogress/nprogress.css">
+    <link rel="stylesheet" href="{{asset("assets/core/css/backend-slidepanel.css")}}">
     <link rel="stylesheet" href="{{asset("assets/core/css/backend-common.css")}}">
 
 

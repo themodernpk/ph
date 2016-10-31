@@ -32,6 +32,7 @@ class PermissionsController extends Controller {
 			$list->where( "name", "like", "%" . $request->get( 's' ) . "%" )
 			     ->orWhere( "prefix", "like", "%" . $request->get( 's' ) . "%" );
 		}
+		$list->orderBy("created_at", 'desc');
 		$data = $list->paginate( 2 );
 
 		return response()->json( $data );
@@ -44,6 +45,8 @@ class PermissionsController extends Controller {
 
 	//------------------------------------------------------
 	public function store( Request $request ) {
+
+
 	}
 
 	//------------------------------------------------------
@@ -90,5 +93,25 @@ class PermissionsController extends Controller {
 		return response()->json( $response );
 	}
 	//------------------------------------------------------
+	public function read(Request $request, $id)
+	{
+		try{
+			$this->data->item = Permission::with(['roles', 'createdBy',
+				'updatedBy', 'deletedBy'])->findOrFail($id);
+
+			return view( $this->data->view . "item" )
+				->with( "data", $this->data );
+		}catch(Exception $e)
+		{
+		    $response['status'] = 'failed';
+		    $response['errors'][] = $e->getMessage();
+		    return response()->json($response);
+		}
+
+
+
+
+
+	}
 	//------------------------------------------------------
 }

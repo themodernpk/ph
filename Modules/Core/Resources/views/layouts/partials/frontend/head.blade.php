@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/flag-icon-css/flag-icon.css">
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/ladda/ladda.css">
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/alertify/alertify.css">
-    <link rel="stylesheet" href="{{assetsCoreMmenu()}}/examples/css/advanced/alertify.css"
+    <link rel="stylesheet" href="{{assetsCoreMmenu()}}/examples/css/advanced/alertify.css">
 
     <!-- Fonts -->
     <link rel="stylesheet" href="{{assetsCoreGlobal()}}/fonts/web-icons/web-icons.min.css">

@@ -11,6 +11,8 @@ Route::group(
 		'namespace'  => 'Modules\Core\Http\Controllers'
 	],
 	function () {
+
+
 		Route::get( '/', 'UserController@index' )
 		     ->name( 'core.frontend.login' )
 		     ->middleware( [ 'core.frontend.login' ] );
@@ -18,6 +20,12 @@ Route::group(
 		Route::get( '/register', 'UserController@register' )
 		     ->name( 'core.frontend.register' )
 		     ->middleware( [ 'core.frontend.register' ] );
+		//------------------------------------------------
+		Route::get( '/ui', 'CoreController@ui' )
+		     ->name( 'core.frontend.ui' );
+		//------------------------------------------------
+		Route::get( '/test', 'CoreController@test' )
+		     ->name( 'core.frontend.test' );
 		//------------------------------------------------
 		Route::any( '/register/store', 'UserController@store' )
 		     ->name( 'core.frontend.register.store' )
@@ -79,8 +87,10 @@ Route::group(
 		Route::post( '/permissions/toggle', 'PermissionsController@toggle' )
 		     ->name( 'core.backend.permissions.toggle' );
 		//------------------------------------------------
-		Route::get( '/permissions/search', 'PermissionsController@search' )
-		     ->name( 'core.backend.permissions.search' );
+		Route::any( '/permissions/read/{id}', 'PermissionsController@read' )
+		     ->name( 'core.backend.permissions.read' );
 		//------------------------------------------------
+		Route::any( '/permissions/store', 'PermissionsController@store' )
+		     ->name( 'core.backend.permissions.store' );
 		//------------------------------------------------
 	} );

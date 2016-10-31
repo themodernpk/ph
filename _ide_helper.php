@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.3.16 on 2016-10-05.
+ * Generated for Laravel 5.3.18 on 2016-10-31.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -1399,7 +1399,7 @@ namespace {
         /**
          * Get the currently authenticated user.
          *
-         * @return \App\User|null 
+         * @return \Modules\Core\Entities\User|null 
          * @static 
          */
         public static function user(){
@@ -1503,7 +1503,7 @@ namespace {
          *
          * @param mixed $id
          * @param bool $remember
-         * @return \App\User|false 
+         * @return \Modules\Core\Entities\User|false 
          * @static 
          */
         public static function loginUsingId($id, $remember = false){
@@ -1514,7 +1514,7 @@ namespace {
          * Log the given user ID into the application without sessions or cookies.
          *
          * @param mixed $id
-         * @return \App\User|false 
+         * @return \Modules\Core\Entities\User|false 
          * @static 
          */
         public static function onceUsingId($id){
@@ -1608,7 +1608,7 @@ namespace {
         /**
          * Return the currently cached user.
          *
-         * @return \App\User|null 
+         * @return \Modules\Core\Entities\User|null 
          * @static 
          */
         public static function getUser(){
@@ -1650,7 +1650,7 @@ namespace {
         /**
          * Get the last user we attempted to authenticate.
          *
-         * @return \App\User 
+         * @return \Modules\Core\Entities\User 
          * @static 
          */
         public static function getLastAttempted(){
@@ -1710,7 +1710,7 @@ namespace {
         /**
          * Determine if the current user is authenticated.
          *
-         * @return \App\User 
+         * @return \Modules\Core\Entities\User 
          * @throws \Illuminate\Auth\AuthenticationException
          * @static 
          */
@@ -11840,7 +11840,7 @@ namespace {
     }
 
 
-    class Module extends \Nwidart\Modules\Facades\Module{
+    class NwidartModule extends \Nwidart\Modules\Facades\Module{
         
         /**
          * Add other module location.
@@ -12041,7 +12041,7 @@ namespace {
          * Find a specific module, if there return that, otherwise throw exception.
          *
          * @param $name
-         * @return \Module 
+         * @return \Nwidart\Modules\Module 
          * @throws ModuleNotFoundException
          * @static 
          */
@@ -12263,6 +12263,50 @@ namespace {
          */
         public static function setStubPath($stubPath){
             return \Nwidart\Modules\Repository::setStubPath($stubPath);
+        }
+        
+    }
+
+
+    class Gravatar extends \Creativeorange\Gravatar\Facades\Gravatar{
+        
+        /**
+         * Override the default image fallback set in the config.
+         * 
+         * Can either be a public URL to an image or a valid themed image.
+         * For more info, visit http://en.gravatar.com/site/implement/images/#default-image
+         *
+         * @param string $fallback
+         * @return $this 
+         * @static 
+         */
+        public static function fallback($fallback){
+            return \Creativeorange\Gravatar\Gravatar::fallback($fallback);
+        }
+        
+        /**
+         * Check if Gravatar has an avatar for the given email address
+         *
+         * @param $email
+         * @return bool 
+         * @throws InvalidEmailException
+         * @static 
+         */
+        public static function exists($email){
+            return \Creativeorange\Gravatar\Gravatar::exists($email);
+        }
+        
+        /**
+         * Get the gravatar url
+         *
+         * @param $email
+         * @param string $configGroup
+         * @return string 
+         * @throws InvalidEmailException
+         * @static 
+         */
+        public static function get($email, $configGroup = 'default'){
+            return \Creativeorange\Gravatar\Gravatar::get($email, $configGroup);
         }
         
     }

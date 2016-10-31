@@ -4,7 +4,8 @@ namespace Modules\Core\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-
+use Modules\Core\Entities\Permission;
+use Modules\Core\Observers\PermissionObserver;
 use Modules\Core\Observers\RoleObserver;
 use Modules\Core\Observers\UserObserver;
 use Modules\Core\Entities\User;
@@ -32,9 +33,9 @@ class CoreEventServiceProvider extends ServiceProvider
 	public function boot()
 	{
 		parent::boot();
-
 		User::observe(UserObserver::class);
 		Role::observe(RoleObserver::class);
+		Permission::observe(PermissionObserver::class);
 	}
 
     /**

@@ -74,6 +74,24 @@ class Role extends Model
 		return $query->whereBetween('deleted_at', array($from, $to));
 	}
 	//-------------------------------------------------
+	public function createdBy() {
+		return $this->belongsTo( 'Modules\Core\Entities\User',
+			'created_by', 'id'
+		);
+	}
+	//-------------------------------------------------
+	public function updatedBy() {
+		return $this->belongsTo( 'Modules\Core\Entities\User',
+			'updated_by', 'id'
+		);
+	}
+	//-------------------------------------------------
+	public function deletedBy() {
+		return $this->belongsTo( 'Modules\Core\Entities\User',
+			'deleted_by', 'id'
+		);
+	}
+	//-------------------------------------------------
 	public function users()
 	{
 		return $this->belongsToMany('Modules\Core\Entities\User',

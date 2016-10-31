@@ -85,6 +85,24 @@ class Permission extends Model {
 	}
 
 	//-------------------------------------------------
+	public function createdBy() {
+		return $this->belongsTo( 'Modules\Core\Entities\User',
+			'created_by', 'id'
+		);
+	}
+	//-------------------------------------------------
+	public function updatedBy() {
+		return $this->belongsTo( 'Modules\Core\Entities\User',
+			'updated_by', 'id'
+		);
+	}
+	//-------------------------------------------------
+	public function deletedBy() {
+		return $this->belongsTo( 'Modules\Core\Entities\User',
+			'deleted_by', 'id'
+		);
+	}
+	//-------------------------------------------------
 	public function roles() {
 		return $this->belongsToMany( 'Modules\Core\Entities\Role',
 			'core_role_permission', 'core_permission_id', 'core_role_id'

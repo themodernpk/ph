@@ -139,6 +139,24 @@ class User extends Authenticatable {
 	}
 
 	//-------------------------------------------------
+	public function createdBy() {
+		return $this->belongsTo( 'Modules\Core\Entities\User',
+			'created_by', 'id'
+		);
+	}
+	//-------------------------------------------------
+	public function updatedBy() {
+		return $this->belongsTo( 'Modules\Core\Entities\User',
+			'updated_by', 'id'
+		);
+	}
+	//-------------------------------------------------
+	public function deletedBy() {
+		return $this->belongsTo( 'Modules\Core\Entities\User',
+			'deleted_by', 'id'
+		);
+	}
+	//-------------------------------------------------
 	public function roles() {
 		return $this->belongsToMany( 'Modules\Core\Entities\Role',
 			'core_user_role', 'core_user_id', 'core_role_id'

@@ -1,18 +1,21 @@
 (function (document, window, $) {
     'use strict';
-    var crudModule = {
+    var PermissionModule = {
         data: {},
         //----------------------------------------
         init: function () {
-            list: null
-        },
-        //----------------------------------------
-        consoleTest: function () {
-            console.log("testing");
+            var current_url = $("input[name=url_current]").val();
+            this.data.url = {
+                current: current_url,
+                list: current_url+"/list/?",
+                read: current_url+"/read/",
+                toggle: current_url+"/toggle/"
+            };
         },
         //----------------------------------------
         fetchList: function (page) {
-            var url = "permissions/list?";
+            console.log(this.data);
+            var url = this.data.url.list;
             if (page === undefined) {
                 url += "page=1";
             } else {
@@ -25,9 +28,9 @@
             $.ajax({
                 url: url,
             }).done(function (response) {
-                var html = crudModule.templateItem(response.data);
+                var html = PermissionModule.templateItem(response.data);
                 $("#list").html(html);
-                crudModule.handlePagination(response);
+                PermissionModule.handlePagination(response);
                 if (s != "") {
                     $("#list").highlight(s);
                 }
@@ -44,6 +47,7 @@
                     object.enable = "No";
                     object.class = "btn-danger"
                 }
+
                 html += `
                     <tr class="" data-id="` + object.id + `">
                         <td>
@@ -60,9 +64,10 @@
                         <td class="hidden-sm-down">` + object.slug + `</td>
                         <td class="hidden-sm-down">` + object.roles_count + `</td>
                         <td>
-                        <button type="button" class="btn btn-sm btn-icon btn-flat btn-default deleteItem" >
+                        <a href="`+PermissionModule.data.url.read+object.id+`"
+                        class="btn btn-sm btn-icon btn-flat btn-default slide-panel">
                             <i class="icon wb-eye" aria-hidden="true"></i>
-                          </button>
+                          </a>
                         </td>
                     </tr>
                 `;
@@ -71,7 +76,7 @@
         },
         //----------------------------------------
         handlePagination: function (data) {
-            crudModule.handleSelectAllReset();
+            PermissionModule.handleSelectAllReset();
             var total = parseFloat(data.total);
             $(".pagination_con").paging(total, {
                 format: '[< nncnn >]',
@@ -79,9 +84,8 @@
                 lapping: 0,
                 page: data.current_page,
                 onSelect: function (page) {
-                    console.log(page);
                     if (page != data.current_page) {
-                        crudModule.fetchList(page);
+                        PermissionModule.fetchList(page);
                     }
                 },
                 onFormat: function (type) {
@@ -100,7 +104,7 @@
                         case 'first':
                             return '<li class="page-item"><a class="page-link" href="#"><span class="icon fa-angle-double-left"></span></a></li>';
                         case 'last':
-                            return '<li class="page-item"><a class="page-link " href="#"><span class="icon fa-angle-double-right"></span></a></li>';
+                            return '<li class="page-item"><a class="page-link "  href="#"><span class="icon fa-angle-double-right"></span></a></li>';
                     }
                 }
             });
@@ -110,7 +114,7 @@
             $("body").on("click", ".enableToggle", function (e) {
                 e.preventDefault();
                 var id = $(this).closest("tr").attr("data-id");
-                crudModule.handleToggleEnable(id);
+                PermissionModule.handleToggleEnable(id);
             });
         },
         //----------------------------------------
@@ -123,12 +127,12 @@
             NProgress.start();
             $.ajax({
                 method: "POST",
-                url: "permissions/toggle",
+                url: PermissionModule.data.url.toggle,
                 data: data,
                 async: true,
                 context: this
             }).done(function (response) {
-                console.log(response);
+
                 NProgress.done();
                 if (response.status == "success") {
                     if (response.data.enable == "1") {
@@ -154,7 +158,7 @@
                 var list = $("#list").find(".selectable-item");
                 $.each(list, function (index, item) {
                     var id = $(item).closest("tr").attr("data-id");
-                    crudModule.handleToggleEnable(id, 0);
+                    PermissionModule.handleToggleEnable(id, 0);
                 });
             });
         },
@@ -165,25 +169,22 @@
                 var list = $("#list").find(".selectable-item");
                 $.each(list, function (index, item) {
                     var id = $(item).closest("tr").attr("data-id");
-                    crudModule.handleToggleEnable(id, 1);
+                    PermissionModule.handleToggleEnable(id, 1);
                 });
             });
         },
         //----------------------------------------
         handleSearch: function () {
-            $("body").on("keyup", ".search", function (e) {
+            $("body").on("keyup blur", ".search", function (e) {
                 e.preventDefault();
-                console.log("done");
-                var text = $(this).val();
-                crudModule.fetchList();
+                PermissionModule.fetchList();
             });
         },
         //----------------------------------------
         handleDelete: function () {
             $("body").on("click", ".deleteItem", function (e) {
                 e.preventDefault();
-                console.log("clicked");
-                crudModule.fetchList();
+                PermissionModule.fetchList();
             });
         },
         //----------------------------------------
@@ -204,7 +205,6 @@
         run: function () {
             var self = this;
             this.init();
-            this.consoleTest();
             this.fetchList();
             this.handleToggle();
             this.handleSearch();
@@ -218,7 +218,7 @@
     };
     //-------------------------------------------
     $(document).ready(function () {
-        crudModule.run();
+        PermissionModule.run();
     });
     //-------------------------------------------
     //-------------------------------------------
