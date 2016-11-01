@@ -11,8 +11,6 @@ Route::group(
 		'namespace'  => 'Modules\Core\Http\Controllers'
 	],
 	function () {
-
-
 		Route::get( '/', 'UserController@index' )
 		     ->name( 'core.frontend.login' )
 		     ->middleware( [ 'core.frontend.login' ] );
@@ -77,7 +75,7 @@ Route::group(
 	function () {
 		Route::get( '/dashboard', 'DashboardController@index' )
 		     ->name( 'core.backend.dashboard' );
-		//------------------------------------------------
+		//############# Permission #################################
 		Route::get( '/permissions', 'PermissionsController@index' )
 		     ->name( 'core.backend.permissions' );
 		//------------------------------------------------
@@ -89,6 +87,30 @@ Route::group(
 		//------------------------------------------------
 		Route::any( '/permissions/read/{id}', 'PermissionsController@read' )
 		     ->name( 'core.backend.permissions.read' );
+		//############# Role #################################
 		//------------------------------------------------
+		Route::get( '/roles', 'RolesController@index' )
+		     ->name( 'core.backend.roles' );
+		//------------------------------------------------
+		Route::get( '/roles/list', 'RolesController@getList' )
+		     ->name( 'core.backend.roles.list' );
+		//------------------------------------------------
+		Route::any( '/roles/toggle', 'RolesController@toggle' )
+		     ->name( 'core.backend.roles.toggle' );
+		//------------------------------------------------
+		Route::post( '/roles/store', 'RolesController@store' )
+		     ->name( 'core.backend.roles.store' );
+		//------------------------------------------------
+		Route::any( '/roles/delete/{id}', 'RolesController@delete' )
+		     ->name( 'core.backend.roles.delete' );
+		//------------------------------------------------
+		Route::any( '/roles/restore/{id}', 'RolesController@restore' )
+		     ->name( 'core.backend.roles.restore' );
+		//------------------------------------------------
+		Route::any( '/roles/delete/permanent/{id}', 'RolesController@deletePermanent' )
+		     ->name( 'core.backend.roles.delete.permanent' );
+		//------------------------------------------------
+		Route::any( '/roles/read/{id}', 'RolesController@read' )
+		     ->name( 'core.backend.roles.read' );
 		//------------------------------------------------
 	} );

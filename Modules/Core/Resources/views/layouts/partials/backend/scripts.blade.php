@@ -15,6 +15,9 @@
 
 
 <!-- Plugins -->
+<script src="{{assetsCoreGlobalVendor()}}/formvalidation/formValidation.min.js"></script>
+<script src="{{assetsCoreGlobalVendor()}}/formvalidation/framework/bootstrap4.min.js"></script>
+
 <script src="{{assetsCoreGlobalVendor()}}/jquery-mmenu/jquery.mmenu.min.all.js"></script>
 <script src="{{assetsCoreGlobalVendor()}}/switchery/switchery.min.js"></script>
 <script src="{{assetsCoreGlobalVendor()}}/intro-js/intro.js"></script>
@@ -25,6 +28,8 @@
 <script src="{{assetsCoreGlobalVendor()}}/ladda/ladda.min.js"></script>
 <script src="{{assetsCoreGlobalVendor()}}/alertify/alertify.js"></script>
 <script src="{{assetsCoreGlobalVendor()}}/nprogress/nprogress.js"></script>
+
+
 <!-- Scripts -->
 <script src="{{assetsCoreGlobal()}}/js/State.js"></script>
 <script src="{{assetsCoreGlobal()}}/js/Component.js"></script>
@@ -51,6 +56,7 @@
 <script src="{{assetsCoreGlobal()}}/js/Plugin/material.js"></script>
 <script src="{{assetsCoreGlobal()}}/js/Plugin/ladda.js"></script>
 <script src="{{assetsCoreGlobal()}}/js/Plugin/nprogress.js"></script>
+
 
 
 

@@ -1,7 +1,7 @@
 @extends('core::layouts.backend')
 
 @section("page_specific_head")
-    <link rel="stylesheet" href="{{asset("assets/core/css/asScrollable.css")}}">
+
 @endsection
 
 @section("page_specific_footer")

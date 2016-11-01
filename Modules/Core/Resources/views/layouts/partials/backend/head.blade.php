@@ -2,10 +2,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-
     <meta name="csrf-token" id="_token" content="{{ csrf_token() }}">
-
-    <title>@if(isset($data->title)){{$data->title}}@else{{Config::get('core.name')}} v{{Config::get('core.version')}}@endif</title>
+    <title>@if(isset($data->title)){{$data->title}}@else{{Config::get('core.name')}}
+        v{{Config::get('core.version')}}@endif</title>
     <!--common head-->
     <link rel="apple-touch-icon" href="{{assetsCoreMmenu()}}/images/apple-touch-icon.png">
     <link rel="shortcut icon" href="{{assetsCoreMmenu()}}/images/favicon.ico">
@@ -25,11 +24,11 @@
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/alertify/alertify.css">
     <link rel="stylesheet" href="{{assetsCoreMmenu()}}/examples/css/advanced/alertify.css">
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/nprogress/nprogress.css">
+    <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/formvalidation/formValidation.css">
+    <link rel="stylesheet" href="{{assetsCoreMmenu()}}/examples/css/forms/validation.css">
     <link rel="stylesheet" href="{{asset("assets/core/css/backend-slidepanel.css")}}">
     <link rel="stylesheet" href="{{asset("assets/core/css/backend-common.css")}}">
-
-
-
+    <link rel="stylesheet" href="{{asset("assets/core/css/asScrollable.css")}}">
     <!-- Fonts -->
     <link rel="stylesheet" href="{{assetsCoreGlobal()}}/fonts/font-awesome/font-awesome.css">
     <link rel="stylesheet" href="{{assetsCoreGlobal()}}/fonts/web-icons/web-icons.min.css">
@@ -51,6 +50,4 @@
     <!---page specific-->
 @yield('page_specific_head')
 <!--/page specific-->
-
-
 </head>

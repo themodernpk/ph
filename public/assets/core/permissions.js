@@ -156,8 +156,12 @@
                 e.preventDefault();
                 var list = $("#list").find(".selectable-item");
                 $.each(list, function (index, item) {
-                    var id = $(item).closest("tr").attr("data-id");
-                    PermissionModule.handleToggleEnable(id, 0);
+                    var check = $(item).prop('checked');
+                    if(check == true)
+                    {
+                        var id = $(item).closest("tr").attr("data-id");
+                        RoleModule.handleToggleEnable(id, 0);
+                    }
                 });
             });
         },
@@ -166,9 +170,15 @@
             $("body").on("click", ".bulkEnable", function (e) {
                 e.preventDefault();
                 var list = $("#list").find(".selectable-item");
+
+
                 $.each(list, function (index, item) {
-                    var id = $(item).closest("tr").attr("data-id");
-                    PermissionModule.handleToggleEnable(id, 1);
+                    var check = $(item).prop('checked');
+                    if(check == true)
+                    {
+                        var id = $(item).closest("tr").attr("data-id");
+                        RoleModule.handleToggleEnable(id, 1);
+                    }
                 });
             });
         },

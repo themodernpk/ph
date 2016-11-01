@@ -72,6 +72,10 @@ function getConstant( $key ) {
 			$val = "You have successfully logged out";
 			break;
 		//------------------------------------------
+		case 'core.backend.not-found':
+			$val = "Record not found";
+			break;
+		//------------------------------------------
 	}
 
 	return $val;

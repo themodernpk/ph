@@ -4,9 +4,9 @@ namespace Modules\Core\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\Core\Entities\Module;
+
 use Modules\Core\Entities\Permission;
-use Modules\Core\Entities\User;
+
 
 class PermissionsController extends Controller {
 	public $data;
@@ -14,6 +14,9 @@ class PermissionsController extends Controller {
 	function __construct( Request $request ) {
 		$this->data        = new \stdClass();
 		$this->data->view  = "core::backend.permissions.";
+		$this->data->permission  = new \stdClass();
+		$this->data->permission->prefix = "core";
+		$this->data->permission->pretext = "backend-admin-permission-";
 		$this->data->input = $request->all();
 	}
 
@@ -41,7 +44,9 @@ class PermissionsController extends Controller {
 
 	//------------------------------------------------------
 	public function toggle( Request $request ) {
-		if ( ! \Auth::user()->hasPermission( "core", "backend-admin-permission-update" ) ) {
+		if ( ! \Auth::user()->hasPermission( $this->data->permission->prefix,
+			$this->data->permission->pretext."update" ) )
+		{
 			$response['status']   = 'failed';
 			$response['errors'][] = getConstant( 'permission.denied' );
 
@@ -72,10 +77,19 @@ class PermissionsController extends Controller {
 	//------------------------------------------------------
 	public function read(Request $request, $id)
 	{
+
+		if ( ! \Auth::user()->hasPermission( $this->data->permission->prefix,
+			$this->data->permission->pretext."read" ) )
+		{
+			$response['status']   = 'failed';
+			$response['errors'][] = getConstant( 'permission.denied' );
+
+			return response()->json( $response );
+		}
+
 		try{
 			$this->data->item = Permission::with(['roles', 'createdBy',
 				'updatedBy', 'deletedBy'])->findOrFail($id);
-
 			return view( $this->data->view . "item" )
 				->with( "data", $this->data );
 		}catch(Exception $e)

@@ -1,6 +1,6 @@
 (function (document, window, $) {
     'use strict';
-    var PermissionModule = {
+    var RoleModule = {
         data: {},
         //----------------------------------------
         init: function () {
@@ -27,9 +27,9 @@
             $.ajax({
                 url: url,
             }).done(function (response) {
-                var html = PermissionModule.templateItem(response.data);
+                var html = RoleModule.templateItem(response.data);
                 $("#list").html(html);
-                PermissionModule.handlePagination(response);
+                RoleModule.handlePagination(response);
                 if (s != "") {
                     $("#list").highlight(s);
                 }
@@ -57,14 +57,15 @@
                           </span>
                         </td>
                         <td class="hidden-sm-down">` + object.id + `</td>
-                        <td class="hidden-sm-down">` + object.prefix + `</td>
                         <td>` + object.name + `</td>
                         <td><button class="btn btn-xs enableToggle ` + object.class + `">` + object.enable + `</button></td>
                         <td class="hidden-sm-down">` + object.slug + `</td>
-                        <td class="hidden-sm-down">` + object.roles_count + `</td>
+                        <td class="hidden-sm-down">` + object.users_count + `</td>
+                        <td class="hidden-sm-down">` + object.permissions_count + `</td>
                         <td>
-                        <a href="`+PermissionModule.data.url.read+object.id+`"
-                        class="btn btn-sm btn-icon btn-flat btn-default slide-panel">
+                        <a href="`+RoleModule.data.url.read+object.id+`"
+                        target="_blank"
+                        class="btn btn-sm btn-icon btn-flat btn-default">
                             <i class="icon wb-eye" aria-hidden="true"></i>
                           </a>
                         </td>
@@ -75,7 +76,7 @@
         },
         //----------------------------------------
         handlePagination: function (data) {
-            PermissionModule.handleSelectAllReset();
+            RoleModule.handleSelectAllReset();
             var total = parseFloat(data.total);
             $(".pagination_con").paging(total, {
                 format: '[< nncnn >]',
@@ -84,7 +85,7 @@
                 page: data.current_page,
                 onSelect: function (page) {
                     if (page != data.current_page) {
-                        PermissionModule.fetchList(page);
+                        RoleModule.fetchList(page);
                     }
                 },
                 onFormat: function (type) {
@@ -113,7 +114,7 @@
             $("body").on("click", ".enableToggle", function (e) {
                 e.preventDefault();
                 var id = $(this).closest("tr").attr("data-id");
-                PermissionModule.handleToggleEnable(id);
+                RoleModule.handleToggleEnable(id);
             });
         },
         //----------------------------------------
@@ -126,7 +127,7 @@
             NProgress.start();
             $.ajax({
                 method: "POST",
-                url: PermissionModule.data.url.toggle,
+                url: RoleModule.data.url.toggle,
                 data: data,
                 async: true,
                 context: this
@@ -156,12 +157,8 @@
                 e.preventDefault();
                 var list = $("#list").find(".selectable-item");
                 $.each(list, function (index, item) {
-                    var check = $(item).prop('checked');
-                    if(check == true)
-                    {
-                        var id = $(item).closest("tr").attr("data-id");
-                        RoleModule.handleToggleEnable(id, 0);
-                    }
+                    var id = $(item).closest("tr").attr("data-id");
+                    RoleModule.handleToggleEnable(id, 0);
                 });
             });
         },
@@ -170,15 +167,9 @@
             $("body").on("click", ".bulkEnable", function (e) {
                 e.preventDefault();
                 var list = $("#list").find(".selectable-item");
-
-
                 $.each(list, function (index, item) {
-                    var check = $(item).prop('checked');
-                    if(check == true)
-                    {
-                        var id = $(item).closest("tr").attr("data-id");
-                        RoleModule.handleToggleEnable(id, 1);
-                    }
+                    var id = $(item).closest("tr").attr("data-id");
+                    RoleModule.handleToggleEnable(id, 1);
                 });
             });
         },
@@ -186,14 +177,14 @@
         handleSearch: function () {
             $("body").on("keyup blur", ".search", function (e) {
                 e.preventDefault();
-                PermissionModule.fetchList();
+                RoleModule.fetchList();
             });
         },
         //----------------------------------------
         handleDelete: function () {
             $("body").on("click", ".deleteItem", function (e) {
                 e.preventDefault();
-                PermissionModule.fetchList();
+                RoleModule.fetchList();
             });
         },
         //----------------------------------------
@@ -227,7 +218,7 @@
     };
     //-------------------------------------------
     $(document).ready(function () {
-        PermissionModule.run();
+        RoleModule.run();
     });
     //-------------------------------------------
     //-------------------------------------------

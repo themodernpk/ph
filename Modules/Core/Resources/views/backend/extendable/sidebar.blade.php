@@ -20,11 +20,13 @@
                 <span class="site-menu-title">Users</span>
             </a>
         </li>
+        @if(Auth::user()->hasPermission("core", "backend-admin-role-read"))
         <li class="site-menu-item">
-            <a class="animsition-link" href="layouts/menu-expended.html">
+            <a class="animsition-link" href="{{route("core.backend.roles")}}">
                 <span class="site-menu-title">Roles</span>
             </a>
         </li>
+        @endif
         @if(Auth::user()->hasPermission("core", "backend-admin-permission-read"))
         <li class="site-menu-item">
             <a class="animsition-link" href="{{route("core.backend.permissions")}}">

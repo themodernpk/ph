@@ -9,6 +9,11 @@
         $(this).slidePanel('hide');
     });
     //-----------------------------------------------------------
+    /*    $("body").on("click", ".checkbox-custom", function (e) {
+     e.preventDefault();
+     $(this).find("input").attr();
+     });*/
+    //-----------------------------------------------------------
     $(document).on('slidePanel::afterLoad', function (e) {
         var $el = $('.slidePanel-inner');
         var scrollTop = $(this).scrollTop();
