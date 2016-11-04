@@ -50,7 +50,7 @@
                                     {{$data->item->createdBy->name}} /
                                 @endif
                                 @if($data->item->created_at)
-                                    {{$data->item->created_at->diffForHumans()}}
+                                    {{$data->item->created_at}}
                                     / {{$data->item->created_at}}
                                 @endif
                             </td>
@@ -63,7 +63,7 @@
                                     {{$data->item->updatedBy->name}} /
                                 @endif
                                 @if($data->item->updated_at)
-                                    {{$data->item->updated_at->diffForHumans()}}
+                                    {{$data->item->updated_at}}
                                     / {{$data->item->updated_at}}
                                 @endif
                             </td>
@@ -75,7 +75,7 @@
                             <td>
                                 {{$data->item->deletedBy->name}} /
                                 @if($data->item->deleted_at)
-                                    {{$data->item->deleted_at->diffForHumans()}}
+                                    {{$data->item->deleted_at}}
                                     / {{$data->item->deleted_at}}
                                 @endif
                             </td>

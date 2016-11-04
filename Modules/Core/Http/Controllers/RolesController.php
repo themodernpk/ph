@@ -4,6 +4,7 @@ namespace Modules\Core\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Core\Entities\Permission;
 use Modules\Core\Entities\Role;
 
 class RolesController extends Controller {
@@ -36,8 +37,12 @@ class RolesController extends Controller {
 			$list->withTrashed();
 		} elseif ( $request->has( "trashed" ) && $request->get( "trashed" ) == 1 ) {
 			$list->withTrashed();
+			$list->orderBy("deleted_at", "desc");
+		} else
+		{
+			$list->orderBy( "created_at", 'desc' );
 		}
-		$list->orderBy( "created_at", 'desc' );
+
 		$config             = \Config::get( "core" );
 		$data['list']       = $list->paginate( $config['settings']->records_per_page );
 		$data['trashCount'] = Role::onlyTrashed()->count();
@@ -76,6 +81,7 @@ class RolesController extends Controller {
 					$item->enable = 0;
 				} else {
 					$item->enable = 1;
+					$item->deleted_at = NULL;
 				}
 			}
 			$item->save();
@@ -134,7 +140,7 @@ class RolesController extends Controller {
 			return redirect()->route( $this->data->route )
 			                 ->withErrors( [ getConstant( 'permission.denied' ) ] );
 		}
-		$this->data->item  = Role::with( [
+		$this->data->item  = Role::withTrashed()->with( [
 			'createdBy',
 			'updatedBy',
 			'deletedBy'
@@ -151,7 +157,39 @@ class RolesController extends Controller {
 	}
 
 	//------------------------------------------------------
-	public function update( Request $request ) {
+	public function update( Request $request)
+	{
+
+		if ( ! \Auth::user()->hasPermission( $this->data->permission->prefix,
+			$this->data->permission->pretext . "update" )
+		) {
+			return redirect()->route( $this->data->route )
+			                 ->withErrors( [ getConstant( 'permission.denied' ) ] );
+		}
+
+		$rules = array(
+		    'id' => 'required',
+		    'slug' => 'required|unique:core_roles,slug,'.$this->data->input['id'],
+		);
+
+		$validator = \Validator::make( $this->data->input, $rules);
+		if ( $validator->fails() ) {
+		        $errors             = $validator->errors();
+		        $response['status'] = 'failed';
+		        $response['errors'] = $errors;
+		        return response()->json( $response );
+		}
+		$item = Role::withTrashed()->findOrFail( $this->data->input['id'] );
+		try {
+			$item->fill($this->data->input);
+			$item->save();
+			$response['status'] = 'success';
+		} catch ( Exception $e ) {
+			$response['status']   = 'failed';
+			$response['errors'][] = $e->getMessage();
+		}
+		return response()->json( $response );
+
 	}
 
 	//------------------------------------------------------
@@ -190,6 +228,64 @@ class RolesController extends Controller {
 			$item->users()->detach();
 			$item->forceDelete();
 			$response['status'] = 'success';
+		} catch ( Exception $e ) {
+			$response['status']   = 'failed';
+			$response['errors'][] = $e->getMessage();
+		}
+
+		return response()->json( $response );
+	}
+	//------------------------------------------------------
+	public function readDetails($id)
+	{
+		$this->data->item = Role::withTrashed()->findOrFail( $id );
+
+		try {
+			$data = view( $this->data->view . "partials.item-table" )
+				->with( "data", $this->data )->render();
+			$response['status'] = 'success';
+			$response['data'] = $data;
+		} catch ( Exception $e ) {
+			$response['status']   = 'failed';
+			$response['errors'][] = $e->getMessage();
+		}
+
+		return response()->json( $response );
+	}
+	//------------------------------------------------------
+	public function stats($id)
+	{
+		$this->data->item = Role::withTrashed()->withCount( [ 'users', 'permissions' ] )->findOrFail( $id );
+
+		try {
+			$data = view( $this->data->view . "partials.item-stats" )
+				->with( "data", $this->data )->render();
+			$response['status'] = 'success';
+			$response['data'] = $data;
+		} catch ( Exception $e ) {
+			$response['status']   = 'failed';
+			$response['errors'][] = $e->getMessage();
+		}
+
+		return response()->json( $response );
+	}
+	//------------------------------------------------------
+	public function permissions($id)
+	{
+		$this->data->item = Role::withTrashed()->findOrFail( $id );
+		$this->data->item->permission_ids = $this->data->item->permissions()->getRelatedIds();
+		$this->data->permissions = Permission::disabled()->get();
+
+		$data = view( $this->data->view . "partials.item-permissions" )
+			->with( "data", $this->data )->render();
+
+		return $data;
+
+		try {
+			$data = view( $this->data->view . "partials.item-permissions" )
+				->with( "data", $this->data )->render();
+			$response['status'] = 'success';
+			$response['data'] = $data;
 		} catch ( Exception $e ) {
 			$response['status']   = 'failed';
 			$response['errors'][] = $e->getMessage();

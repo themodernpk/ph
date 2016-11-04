@@ -30,6 +30,16 @@ class Role extends Model {
 	];
 
 	//-------------------------------------------------
+	public function setNameAttribute( $value ) {
+		$this->attributes['name'] = ucwords( $value );
+	}
+	//-------------------------------------------------
+	public function setDetailsAttribute( $value ) {
+		$this->attributes['details'] = ucfirst( $value );
+	}
+	//-------------------------------------------------
+
+	//-------------------------------------------------
 	public function scopeEnabled( $query ) {
 		return $query->where( 'enable', 1 );
 	}

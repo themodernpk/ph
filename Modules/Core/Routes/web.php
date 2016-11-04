@@ -113,4 +113,16 @@ Route::group(
 		Route::any( '/roles/read/{id}', 'RolesController@read' )
 		     ->name( 'core.backend.roles.read' );
 		//------------------------------------------------
+		Route::any( '/roles/read/{id}/details', 'RolesController@readDetails' )
+		     ->name( 'core.backend.roles.read.details' );
+		//------------------------------------------------
+		Route::post( '/roles/update', 'RolesController@update' )
+		     ->name( 'core.backend.roles.update' );
+		//------------------------------------------------
+		Route::any( '/roles/read/{id}/stats', 'RolesController@stats' )
+		     ->name( 'core.backend.roles.stats' );
+		//------------------------------------------------
+		Route::any( '/roles/read/{id}/permissions', 'RolesController@permissions' )
+		     ->name( 'core.backend.roles.permissions' );
+		//------------------------------------------------
 	} );

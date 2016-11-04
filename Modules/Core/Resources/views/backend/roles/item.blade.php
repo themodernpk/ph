@@ -10,18 +10,93 @@
 @section('content')
 
     <div class="page">
+        <input type="hidden" name="url_current" value="{{url()->current()}}">
         <!--header-->
-        <div class="page-header">
-            <input type="hidden" name="url_current" value="{{url()->current()}}">
 
-            <h1>{{$data->item->name}}</h1>
+        <!--header-->
+        <!--content-->
+        <div class="page-content container-fluid">
+            <!--role details-->
+
+
+                <div class="col-xxl-4 col-lg-6 col-xs-12">
+                    <div class="widgetScore card card-shadow p-b-20">
+                        <div class="card-block">
+                                <div class="card-actions">
+                                <a href="{{route("core.backend.roles.stats",
+                                            [$data->item->id])}}"
+                                   class="icon wb-reload pk-item-stats pk-action-reload"
+                                   data-target="#stats"
+                                   aria-hidden="true"></a>
+                            </div>
+                            <div class="row text-xs-center m-b-20" id="stats">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"></h3>
+                            <div class="panel-actions panel-actions-keep">
+                                <a class="panel-action icon wb-pencil pk-form-edit"
+                                   data-target="#item-edit-form"
+                                   aria-hidden="true"></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive item">
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            <!--/role details-->
+
+            <!--permissions-->
+            <div class="col-xxl-3 col-lg-6 col-xs-12">
+                <!-- Panel Watchlist -->
+                <div class="card card-shadow widgetTable">
+                    <div class="card-block p-30">
+                        <h3 class="card-title">
+                            <span class="text-truncate">Permissions</span>
+                            <div class="card-header-actions">
+                                <span class="red-600 font-size-24">$ 102,967</span>
+                            </div>
+                        </h3>
+                        <form class="m-t-25" action="#" role="search">
+                            <div class="input-search input-search-dark">
+                                <i class="input-search-icon wb-search" aria-hidden="true"></i>
+                                <input type="text" class="form-control" placeholder="Search..">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="h-300 scrollable is-enabled scrollable-vertical" data-plugin="scrollable"
+                         style="position: relative;">
+                        <div data-role="container" class="scrollable-container">
+                            <div data-role="content" class="scrollable-content">
+
+                            </div>
+                        </div>
+                        <div class="scrollable-bar scrollable-bar-vertical is-disabled scrollable-bar-hide"
+                             draggable="false">
+                            <div class="scrollable-bar-handle"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Panel Watchlist -->
+            </div>
+            <!--/permissions-->
+
 
 
         </div>
-        <!--header-->
-        <!--content-->
-
         <!--/content-->
+
     </div>
 @endsection
 

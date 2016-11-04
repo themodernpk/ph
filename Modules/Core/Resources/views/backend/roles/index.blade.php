@@ -10,11 +10,9 @@
 @section('content')
 
     <div class="page">
-        <!--header-->
-        <div class="page-header">
-            <input type="hidden" name="url_current" value="{{url()->current()}}">
-        </div>
-        <!--header-->
+        <input type="hidden" name="url_current" value="{{url()->current()}}">
+
+
         <!--content-->
         <div id="exampleTransition"
              class="page-content container-fluid"
@@ -80,7 +78,7 @@
                                                             <label>Yes</label>
                                                         </div>
                                                         <div class="radio-custom radio-danger radio-inline">
-                                                            <input type="radio" name="enable" value="1">
+                                                            <input type="radio" name="enable" value="0">
                                                             <label>No</label>
                                                         </div>
                                                     </div>
