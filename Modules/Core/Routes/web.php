@@ -125,4 +125,7 @@ Route::group(
 		Route::any( '/roles/read/{id}/permissions', 'RolesController@permissions' )
 		     ->name( 'core.backend.roles.permissions' );
 		//------------------------------------------------
+		Route::any( '/roles/read/{id}/permissions/toggle/{permission_id}', 'RolesController@permissionsToggle' )
+		     ->name( 'core.backend.roles.permissions.toggle' );
+		//------------------------------------------------
 	} );

@@ -11,6 +11,7 @@
 
     <div class="page">
         <input type="hidden" name="url_current" value="{{url()->current()}}">
+        <input type="hidden" name="url_item_permissions" value="{{route("core.backend.roles.permissions", $data->item->id)}}">
         <!--header-->
 
         <!--header-->
@@ -65,13 +66,15 @@
                         <h3 class="card-title">
                             <span class="text-truncate">Permissions</span>
                             <div class="card-header-actions">
-                                <span class="red-600 font-size-24">$ 102,967</span>
+                                {{--<span class="red-600 font-size-24">$ 102,967</span>--}}
                             </div>
                         </h3>
                         <form class="m-t-25" action="#" role="search">
                             <div class="input-search input-search-dark">
                                 <i class="input-search-icon wb-search" aria-hidden="true"></i>
-                                <input type="text" class="form-control" placeholder="Search..">
+                                <input type="text" class="form-control"
+                                       id="permission-search"
+                                       placeholder="Search..">
                             </div>
                         </form>
                     </div>
@@ -79,7 +82,9 @@
                          style="position: relative;">
                         <div data-role="container" class="scrollable-container">
                             <div data-role="content" class="scrollable-content">
+                                <div id="permissions-list">
 
+                                </div>
                             </div>
                         </div>
                         <div class="scrollable-bar scrollable-bar-vertical is-disabled scrollable-bar-hide"

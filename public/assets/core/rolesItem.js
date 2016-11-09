@@ -7,10 +7,10 @@
             var current_url = $("input[name=url_current]").val();
             this.data.url = {
                 current: current_url,
-                list: current_url+"/list/?",
-                read: current_url+"/read/",
-                toggle: current_url+"/toggle/",
-                item: current_url+"/details/"
+                list: current_url + "/list/?",
+                read: current_url + "/read/",
+                toggle: current_url + "/toggle/",
+                item: current_url + "/details/"
             };
         },
         //----------------------------------------
@@ -29,7 +29,7 @@
             }
             $.ajax(ajaxOpt).done(function (response) {
                 NProgress.done();
-                console.log("ajax response", response);
+                //console.log("ajax response", response);
                 if (response.status == "success" && callbackfn) {
                     callbackfn(response);
                 } else {
@@ -45,22 +45,17 @@
         },
         //----------------------------------------
         handleItemShow: function (response) {
-            if(response.status == "success" && response.data)
-            {
+            if (response.status == "success" && response.data) {
                 $(".item").html(response.data);
             }
         },
         //----------------------------------------
-        handleItemUpdate: function ()
-        {
-
+        handleItemUpdate: function () {
             $("body").on("submit", ".form-item-update", function (e) {
                 e.preventDefault();
-
                 var url = $(this).attr("action");
                 var data = $(this).serialize();
                 RoleModuleItem.handleAjax(url, RoleModuleItem.handleItemGet, data, "POST");
-
             });
         },
         //----------------------------------------
@@ -69,9 +64,42 @@
             RoleModuleItem.handleAjax(url, RoleModuleItem.handleItemStatsShow);
         },
         //----------------------------------------
+        handleItemPermissions: function () {
+            var url = $("input[name=url_item_permissions]").val();
+            var search = $("#permission-search").val();
+            if (search != "") {
+                url = url + "?s=" + search;
+            }
+            RoleModuleItem.handleItemPermissionLoad(url);
+        },
+        //----------------------------------------
+        handleItemPermissionLoad: function (url) {
+            RoleModuleItem.handleAjax(url, RoleModuleItem.handleItemPermissionsShow);
+        },
+        //----------------------------------------
+        handleItemPermissionsShow: function (response) {
+            $("#permissions-list").html(response.data);
+        },
+        //----------------------------------------
+        handleItemPermissionsSearch: function () {
+            $("body").on("keyup blur", "#permission-search", function (e) {
+                e.preventDefault();
+                RoleModuleItem.handleItemPermissions();
+
+
+            });
+        },
+        //----------------------------------------
+        handleItemPermissionsToggle: function () {
+            $("body").on("click", ".permissionToggle", function (e) {
+                e.preventDefault();
+                var url = $(this).attr("data-url");
+                RoleModuleItem.handleAjax(url, RoleModuleItem.handleItemPermissions);
+            });
+        },
+        //----------------------------------------
         handleItemStatsShow: function (response) {
-            if(response.status == "success" && response.data)
-            {
+            if (response.status == "success" && response.data) {
                 $("#stats").html(response.data);
             }
         },
@@ -80,8 +108,7 @@
             $("body").on("click", ".pk-action-reload", function (e) {
                 e.preventDefault();
                 var target = $(this).attr("data-target");
-                if(target == "#stats")
-                {
+                if (target == "#stats") {
                     RoleModuleItem.handleItemStats();
                 }
             });
@@ -94,7 +121,9 @@
             this.handleItemUpdate();
             this.handleItemStats();
             this.handleReload();
-
+            this.handleItemPermissions();
+            this.handleItemPermissionsSearch();
+            this.handleItemPermissionsToggle();
         }
         //----------------------------------------
     };
