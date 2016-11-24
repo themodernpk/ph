@@ -160,7 +160,7 @@
                     if(check == true)
                     {
                         var id = $(item).closest("tr").attr("data-id");
-                        RoleModule.handleToggleEnable(id, 0);
+                        PermissionModule.handleToggleEnable(id, 0);
                     }
                 });
             });
@@ -177,7 +177,7 @@
                     if(check == true)
                     {
                         var id = $(item).closest("tr").attr("data-id");
-                        RoleModule.handleToggleEnable(id, 1);
+                        PermissionModule.handleToggleEnable(id, 1);
                     }
                 });
             });

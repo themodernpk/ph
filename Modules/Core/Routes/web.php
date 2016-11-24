@@ -11,7 +11,7 @@ Route::group(
 		'namespace'  => 'Modules\Core\Http\Controllers'
 	],
 	function () {
-		Route::get( '/', 'UserController@index' )
+		Route::get( '/', 'UserController@login' )
 		     ->name( 'core.frontend.login' )
 		     ->middleware( [ 'core.frontend.login' ] );
 		//------------------------------------------------
@@ -125,7 +125,46 @@ Route::group(
 		Route::any( '/roles/read/{id}/permissions', 'RolesController@permissions' )
 		     ->name( 'core.backend.roles.permissions' );
 		//------------------------------------------------
-		Route::any( '/roles/read/{id}/permissions/toggle/{permission_id}', 'RolesController@permissionsToggle' )
+		Route::any( '/roles/read/{id}/permissions/toggle/{permission_id}',
+			'RolesController@permissionsToggle' )
 		     ->name( 'core.backend.roles.permissions.toggle' );
 		//------------------------------------------------
+
+
+		//############# User #################################
+		Route::get( '/users', 'UsersController@index' )
+		     ->name( 'core.backend.users' );
+		//------------------------------------------------
+		Route::get( '/users/list', 'UsersController@getList' )
+		     ->name( 'core.backend.users.list' );
+		//------------------------------------------------
+		Route::any( '/users/store', 'UsersController@store' )
+		     ->name( 'core.backend.users.store' );
+		//------------------------------------------------
+        Route::any( '/users/enable/{id}', 'UsersController@enable' )
+            ->name( 'core.backend.users.enable' );
+		//------------------------------------------------
+        Route::any( '/users/disable/{id}', 'UsersController@disable' )
+            ->name( 'core.backend.users.disable' );
+		//------------------------------------------------
+        Route::any( '/users/delete/{id}', 'UsersController@delete' )
+            ->name( 'core.backend.users.delete' );
+		//------------------------------------------------
+        Route::any( '/users/edit/{id}', 'UsersController@edit' )
+            ->name( 'core.backend.users.edit' );
+		//------------------------------------------------
+        Route::any( '/users/save/{id}', 'UsersController@edit' )
+            ->name( 'core.backend.users.save' );
+		//------------------------------------------------
+        Route::any( '/users/restore/{id}', 'UsersController@restore' )
+            ->name( 'core.backend.users.restore' );
+        //------------------------------------------------
+        Route::any( '/users/permanent/delete/{id}', 'UsersController@permanentDelete' )
+            ->name( 'core.backend.users.permanent.delete' );
+		//------------------------------------------------
+		//------------------------------------------------
+		//------------------------------------------------
+
+
+
 	} );

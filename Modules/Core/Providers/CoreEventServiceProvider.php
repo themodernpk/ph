@@ -26,6 +26,10 @@ class CoreEventServiceProvider extends ServiceProvider
 		'Modules\Core\Events\UserLoggedIn' => [
 			'Modules\Core\Events\Handlers\OnUserLoggedIn',
 		],
+        'Modules\Core\Events\UserCreated' => [
+            'Modules\Core\Events\Handlers\SendActivationEmail',
+            'Modules\Core\Events\Handlers\SendWelcomeEmail',
+        ],
 	];
 
 	//---------------------------------------------

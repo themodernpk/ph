@@ -59,6 +59,11 @@ class User extends Authenticatable {
 	}
 
 	//-------------------------------------------------
+    public function setMobileAttribute( $value ) {
+        $this->attributes['mobile'] = str_replace("-", "", $value );
+    }
+
+	//-------------------------------------------------
 	public function scopeEnabled( $query ) {
 		return $query->where( 'enable', 1 );
 	}

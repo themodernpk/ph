@@ -14,10 +14,11 @@ class UserController extends Controller {
 
 	function __construct() {
 		$this->data = new \stdClass();
+
 	}
 
 	//--------------------------------------------------------
-	public function index( Request $request ) {
+	public function login( Request $request ) {
 		$this->data->session    = session()->all();
 		$this->data->body_class = "animsition page-login-v3 layout-full";
 
@@ -88,6 +89,20 @@ class UserController extends Controller {
 		}
 	}
 	//--------------------------------------------------------
+	public function index() {
+
+		if ( ! \Auth::user()->hasPermission( $this->data->permission->prefix,
+			$this->data->permission->pretext . "read" )
+		) {
+			return redirect()->route('core.backend.dashboard')
+			                 ->withError([getConstant( 'permission.denied' )]);
+		}
+
+		$this->data->title = "Roles";
+
+		return view( $this->data->view . "index" )
+			->with( "data", $this->data );
+	}
 	//--------------------------------------------------------
 	//--------------------------------------------------------
 	//--------------------------------------------------------

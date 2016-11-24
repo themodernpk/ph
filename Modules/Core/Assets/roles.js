@@ -214,16 +214,21 @@
             if (data) {
                 ajaxOpt.data = data;
             }
+            NProgress.start();
             $.ajax(ajaxOpt).done(function (response) {
                 console.log("ajax response", response);
-                NProgress.done();
+
                 if (response.status == "success" && callbackfn) {
+
                     callbackfn(response);
+
                 } else {
                     $.each(response.errors, function (index, object) {
                         alertify.error(object);
                     });
                 }
+
+                NProgress.done();
             });
         },
         //----------------------------------------

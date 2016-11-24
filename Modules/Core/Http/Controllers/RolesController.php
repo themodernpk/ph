@@ -214,7 +214,7 @@ class RolesController extends Controller {
 	public function delete( Request $request, $id ) {
 
 		if ( ! \Auth::user()->hasPermission( $this->data->permission->prefix,
-			$this->data->permission->pretext . "update" )
+			$this->data->permission->pretext . "delete" )
 		) {
 			$response['status']   = 'failed';
 			$response['errors'][] = getConstant( 'permission.denied' );

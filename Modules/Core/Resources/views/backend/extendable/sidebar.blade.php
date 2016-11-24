@@ -15,11 +15,13 @@
         <span class="site-menu-arrow"></span>
     </a>
     <ul class="site-menu-sub">
+        @if(Auth::user()->hasPermission("core", "backend-admin-user-read"))
         <li class="site-menu-item">
-            <a class="animsition-link" href="layouts/menu-collapsed.html">
+            <a class="animsition-link" href="{{route("core.backend.users")}}">
                 <span class="site-menu-title">Users</span>
             </a>
         </li>
+        @endif
         @if(Auth::user()->hasPermission("core", "backend-admin-role-read"))
         <li class="site-menu-item">
             <a class="animsition-link" href="{{route("core.backend.roles")}}">
