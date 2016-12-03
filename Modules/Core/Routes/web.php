@@ -153,8 +153,8 @@ Route::group(
         Route::any( '/users/edit/{id}', 'UsersController@edit' )
             ->name( 'core.backend.users.edit' );
 		//------------------------------------------------
-        Route::any( '/users/save/{id}', 'UsersController@edit' )
-            ->name( 'core.backend.users.save' );
+        Route::any( '/users/update/{id}', 'UsersController@update' )
+            ->name( 'core.backend.users.update' );
 		//------------------------------------------------
         Route::any( '/users/restore/{id}', 'UsersController@restore' )
             ->name( 'core.backend.users.restore' );
@@ -162,6 +162,8 @@ Route::group(
         Route::any( '/users/permanent/delete/{id}', 'UsersController@permanentDelete' )
             ->name( 'core.backend.users.permanent.delete' );
 		//------------------------------------------------
+        Route::any( '/users/{id}', 'UsersController@view' )
+            ->name( 'core.backend.users.view' );
 		//------------------------------------------------
 		//------------------------------------------------
 

@@ -197,6 +197,11 @@ class UsersController extends Controller {
 
 		$fillable = $request->except($except);
 
+        if(isset($fillable['password']))
+        {
+            $fillable['password'] = Hash::make( $fillable['password'] );
+        }
+
 		try {
 			$user = User::create($fillable);
 
@@ -222,6 +227,106 @@ class UsersController extends Controller {
 		return response()->json( $response );
 
 	}
+	//--------------------------------------------------------
+    public function edit( Request $request, $id ) {
+
+        if ( ! \Auth::user()->hasPermission( $this->data->permission->prefix,
+            $this->data->permission->pretext . "update" )
+        ) {
+            return redirect()->route('core.backend.dashboard')
+                ->withError([getConstant( 'permission.denied' )]);
+        }
+
+        $this->data->roles = Role::enabled()->get();
+        $this->data->item = User::withTrashed()->findOrFail( $id );
+        $this->data->itemRoles = $this->data->item->roles->pluck('id')->toArray();
+
+        $this->data->title = "Edit - ".$this->data->item->name;
+
+
+        return view( $this->data->view . "index-edit-form" )
+            ->with( "data", $this->data );
+    }
+	//--------------------------------------------------------
+    public function update( Request $request, $id ) {
+
+        //verify the permission
+        if ( ! \Auth::user()->hasPermission( $this->data->permission->prefix,
+            $this->data->permission->pretext . "update" )
+        ) {
+            $response['status']   = 'failed';
+            $response['errors'][] = getConstant( 'permission.denied' );
+
+            return response()->json( $response );
+        }
+
+        \Validator::extend('without_spaces', function($attr, $value){
+            return preg_match('/^\S*$/u', $value);
+        });
+
+
+        //data validation
+        $rules     = array(
+            'name' => 'required|max:50',
+            'email' => 'required|email|max:255|unique:core_users,email,'.$id,
+            'username' => 'without_spaces|max:20|unique:core_users,username,'.$id,
+            'mobile' => 'unique:core_users,mobile,'.$id,
+            'password' => 'min:8',
+        );
+
+        $messages = array(
+            'username.without_spaces' => "Username should not contain any space"
+        );
+
+        $validator = \Validator::make( (array) $this->data->input, $rules, $messages );
+        if ( $validator->fails() ) {
+            $errors             = $validator->errors();
+            $response['status'] = 'failed';
+            $response['errors'] = $errors;
+
+            return response()->json( $response );
+        }
+
+        $except = ['_token', 'send_activation_email', 'send_welcome_email', 'roles'];
+
+        if(!isValidateDate($request->get('birth_date')))
+        {
+            $except[] = 'birth_date';
+        }
+
+
+        $fillable = $request->except($except);
+
+        if(isset($fillable['password']))
+        {
+            $fillable['password'] = Hash::make( $fillable['password'] );
+        }
+
+        try {
+            $user = User::where('id', $id)->withTrashed()->update($fillable);
+            $user = User::find($id);
+            //fire the event
+            $event['user'] = $user;
+            $event['send_activation_email'] = $request->get('send_activation_email', 0);
+            $event['send_welcome_email'] = $request->get('send_welcome_email', 0);
+
+
+            if($request->has('roles'))
+            {
+                $user->roles()->sync($request->get('roles'));
+            }
+
+            //event(new UserCreated($event));
+
+            $response['data'] = $user;
+            $response['status'] = 'success';
+        } catch ( Exception $e ) {
+            $response['status']   = 'failed';
+            $response['errors'][] = $e->getMessage();
+        }
+
+        return response()->json( $response );
+    }
 	//--------------------------------------------------------
     public function delete( Request $request, $id ) {
 
@@ -346,5 +451,24 @@ class UsersController extends Controller {
         return response()->json( $response );
     }
 	//--------------------------------------------------------
+    public function view( Request $request, $id ) {
+
+        if ( ! \Auth::user()->hasPermission( $this->data->permission->prefix,
+            $this->data->permission->pretext . "read" )
+        ) {
+            return redirect()->route('core.backend.users')
+                ->withError([getConstant( 'permission.denied' )]);
+        }
+
+        $this->data->item = User::withTrashed()->findOrFail( $id );
+        $this->data->avatar = User::avatar( $id );
+
+        $this->data->title = $this->data->item->name;
+        $this->data->body_class = "page-profile";
+
+
+        return view( $this->data->view . "users-item" )
+            ->with( "data", $this->data );
+    }
 	//--------------------------------------------------------
 }

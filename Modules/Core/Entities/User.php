@@ -287,6 +287,9 @@ class User extends Authenticatable {
 		$permission = Permission::where( 'slug', $permission_slug )
 		                        ->where( 'prefix', $prefix )
 		                        ->first();
+
+
+
 		if ( ! $permission ) {
 			$permission         = new Permission();
 			$permission->slug   = $permission_slug;
@@ -296,12 +299,23 @@ class User extends Authenticatable {
 			$permission->save();
 			Permission::syncWithAdmin();
 		}
+
+
 		if ( $this->isAdmin() ) {
 			return true;
 		}
+
 		if ( $permission->enable == 0 ) {
 			return false;
 		}
+
+		$list = $this->permissions()->get();
+
+        echo "<pre>";
+        print_r($list);
+        echo "</pre>";
+        die("<hr/>line number=123");
+
 		foreach ( $this->permissions()->get() as $permission ) {
 			if ( $permission->slug == $permission_slug
 			     && $permission->prefix == $prefix
@@ -313,6 +327,7 @@ class User extends Authenticatable {
 
 		return false;
 	}
+
 
 	//-------------------------------------------------
 	public static function avatar( $id ) {

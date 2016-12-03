@@ -22,6 +22,13 @@ class UserController extends Controller {
 		$this->data->session    = session()->all();
 		$this->data->body_class = "animsition page-login-v3 layout-full";
 
+        $permission = User::find(1)->permissions()->get();
+
+        echo "<pre>";
+        print_r($permission);
+        echo "</pre>";
+        die("<hr/>line number=123");
+
 		return view( 'core::frontend.login' )->with( 'data', $this->data );
 	}
 

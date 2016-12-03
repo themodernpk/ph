@@ -57,6 +57,8 @@ class AuthController extends Controller
 		    )], $remember
 		    ))
 	    {
+
+
 	    	if(!Auth::user()->hasPermission('core', 'backend-login'))
 		    {
 			    $response['status'] = 'failed';
@@ -70,6 +72,9 @@ class AuthController extends Controller
 			    $response['data'] = Auth::user();
 			    $response['redirect'] = $redirect;
 		    }
+
+		    die("<hr/>line number=123");
+
 	    } else
 	    {
 		    $response['status'] = 'failed';

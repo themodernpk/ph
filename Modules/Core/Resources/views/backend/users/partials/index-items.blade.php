@@ -53,7 +53,7 @@
                 @endif
             </td>
             <td class="hidden-sm-down">
-                <a href="{{route('core.backend.users.enable', [$item->id])}}"
+                <a href="{{route('core.backend.users.view', [$item->id])}}"
                    target="_blank"
                    class="btn btn-sm btn-icon btn-flat btn-default">
                     <i class="icon wb-eye" aria-hidden="true"></i>

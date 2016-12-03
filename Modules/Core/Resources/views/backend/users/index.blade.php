@@ -34,7 +34,8 @@
 
                     <!--create form-->
                     @include("core::backend.users.partials.index-create-form")
-                    <!--create form-->
+                    <!--/create form-->
+
 
                     <!--tabs-->
                     <div class="example-wrap m-lg-0">
