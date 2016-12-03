@@ -170,6 +170,7 @@ return [
 	    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 	    Nwidart\Modules\LaravelModulesServiceProvider::class,
 	    Creativeorange\Gravatar\GravatarServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
 	    Modules\Core\Providers\CoreServiceProvider::class,
 	    Modules\Core\Providers\CoreEventServiceProvider::class,

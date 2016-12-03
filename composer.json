@@ -10,7 +10,8 @@
         "jeroen-g/laravel-packager": "^1.5",
         "barryvdh/laravel-ide-helper": "^2.2",
         "nwidart/laravel-modules": "dev-master",
-        "creativeorange/gravatar": "~1.0"
+        "creativeorange/gravatar": "~1.0",
+        "spatie/laravel-permission": "^1.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
