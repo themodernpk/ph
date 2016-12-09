@@ -13,6 +13,7 @@ function assetsCoreGlobal() {
 	return $asset;
 }
 
+
 //---------------------------------------------------
 function assetsCoreGlobalVendor() {
 	$asset = asset( "assets/theme/global/vendor" );

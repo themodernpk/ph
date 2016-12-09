@@ -1,10 +1,10 @@
 <li class="site-menu-item">
-    <a href="javascript:void(0)">
+    <a href="{{route("core.backend.dashboard")}}">
         <i class="site-menu-icon wb-dashboard" aria-hidden="true"></i>
         <span class="site-menu-title">Dashboard</span>
-        <div class="site-menu-badge">
+        {{--<div class="site-menu-badge">
             <span class="tag label-pill tag-success">3</span>
-        </div>
+        </div>--}}
     </a>
 </li>
 @if(Auth::user()->hasPermission("core", "backend-admin-menu"))

@@ -3,15 +3,13 @@
 @section('content')
 
     <div class="page">
-        <div class="page-content container-fluid">
-            @include("core::layouts.partials.backend.extendable.dashboard")
-        </div>
+        @include("core::layouts.partials.backend.extendable.dashboard")
+
+
     </div>
 @endsection
 
 
 @section("page_specific_footer")
-    <script>
-    </script>
 
 @endsection

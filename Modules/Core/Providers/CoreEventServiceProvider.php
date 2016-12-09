@@ -30,6 +30,11 @@ class CoreEventServiceProvider extends ServiceProvider
             'Modules\Core\Events\Handlers\SendActivationEmail',
             'Modules\Core\Events\Handlers\SendWelcomeEmail',
         ],
+
+        'Illuminate\Mail\Events\MessageSending' => [
+            'Modules\Core\Events\Handlers\LogSentMessage',
+        ],
+
 	];
 
 	//---------------------------------------------

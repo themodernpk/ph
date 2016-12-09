@@ -2,12 +2,15 @@
 
 namespace Modules\Core\Notifications;
 
+use NotificationChannels\PusherPushNotifications\PusherChannel;
+use NotificationChannels\PusherPushNotifications\PusherMessage;
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class UserCreated extends Notification
+class UserDisabled extends Notification
 {
     use Queueable;
 
@@ -29,7 +32,7 @@ class UserCreated extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database',PusherChannel::class];
     }
 
     /**
@@ -41,6 +44,8 @@ class UserCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+            ->error()
+                    ->greeting($notifiable->name)
                     ->line('The introduction to the notification.')
                     ->action('Notification Action', 'https://laravel.com')
                     ->line('Thank you for using our application!');
@@ -56,17 +61,22 @@ class UserCreated extends Notification
     {
         return [
             //
+            'core_user_id' => $notifiable->id,
+
         ];
     }
-    //-----------------------------------------------------
-	public function toDatabase($notifiable)
-	{
-		return new DatabaseMessage([
-			'message' => 'A new post was published on Laravel News.',
-			'action' => url($this->post->slug)
-		]);
-	}
-    //-----------------------------------------------------
-    //-----------------------------------------------------
-    //-----------------------------------------------------
+
+    //------------------------------------------------------------------------
+    public function toPushNotification($notifiable)
+    {
+        return PusherMessage::create()
+            ->iOS()
+            ->badge(1)
+            ->sound('success')
+            ->body("Your {$notifiable->service} account was approved!");
+    }
+    //------------------------------------------------------------------------
+    //------------------------------------------------------------------------
+    //------------------------------------------------------------------------
+
 }

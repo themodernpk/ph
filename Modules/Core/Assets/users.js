@@ -53,6 +53,10 @@
         },
 
         //----------------------------------------
+        handleStore: function (data, url) {
+            UsersModule.handleAjax(url, UsersModule.buildListUrl, data, 'POST');
+        },
+        //----------------------------------------
         handleAjax: function (url, callbackfn, data, method) {
             if (!method) {
                 method = "GET";
@@ -307,13 +311,14 @@
                 }
             }
         }).on('success.form.fv', function (e) {
-            /*e.preventDefault();
+            e.preventDefault();
             var $form = $(e.target);
             var id = $form.attr('id');
+            var url = $form.attr('action');
             var data = $form.serialize();
-            UsersModule.handleStore(data);
+            UsersModule.handleStore(data, url);
             $('#ModalFormCreate form').data('formValidation').resetForm(true);
-            $('#ModalFormCreate').modal('hide');*/
+            $('#ModalFormCreate').modal('hide');
         });
     })();
     //-------------------------------------------

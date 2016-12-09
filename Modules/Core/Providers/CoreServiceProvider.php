@@ -25,6 +25,14 @@ class CoreServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
 
+        $this->app->bind('mailgun.client', function() {
+            $client = new \GuzzleHttp\Client([
+                                                 // your configuration
+                                             ]);
+
+            return new \Http\Adapter\Guzzle6\Client($client);
+        });
+
     }
 
     /**

@@ -30,7 +30,8 @@ class sendWelcomeEmail
     {
 
 
-        if(isset($event->data['send_welcome_email'])) {
+        if(isset($event->data['send_welcome_email']))
+        {
             $activity = new Activity();
             $activity->type = 'user-welcome-email';
             $activity->label = 'welcome email';
@@ -38,5 +39,9 @@ class sendWelcomeEmail
             //$activity->meta = json_encode($event->user);
             $activity->save();
         }
+
+
+
+
     }
 }

@@ -13,9 +13,20 @@
         <input type="hidden" name="url_current" value="{{url()->current()}}">
         <input type="hidden" name="url_item_permissions" value="{{route("core.backend.roles.permissions", $data->item->id)}}">
         <!--header-->
+        <div class="page-header">
+            <h1 class="page-title">{{$data->item->name}}</h1>
 
+            <div class="page-header-actions">
+                <a class="btn btn-sm btn-inverse btn-round" href="{{route('core.backend.roles')}}">
+                    <i class="icon wb-arrow-left" aria-hidden="true"></i>
+                    <span class="hidden-sm-down">Back</span>
+                </a>
+            </div>
+        </div>
         <!--header-->
         <!--content-->
+
+
         <div class="page-content container-fluid">
             <!--role details-->
 

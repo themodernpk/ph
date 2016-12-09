@@ -17,9 +17,7 @@ class CreateCoreSmsAlertsTable extends Migration
 	        $table->string('type')->nullable();
 	        $table->string('label')->nullable();
 	        $table->integer('core_user_id')->nullable();
-	        $table->string('from')->nullable();
 	        $table->string('to')->nullable();
-	        $table->string('subject')->nullable();
 	        $table->text('message')->nullable();
 	        $table->text('meta');
 	        $table->timestamps();

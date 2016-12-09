@@ -85,10 +85,24 @@ class CoreController extends Controller
 		return view( 'core::frontend.ui' );
 	}
 	//--------------------------------------------------------
-	public function test()
+	public function doc()
 	{
-		return view( 'core::frontend.test' );
+		return view( 'core::frontend.doc' );
 	}
+	//--------------------------------------------------------
+    public function test()
+    {
+
+
+
+        return view( 'core::frontend.test' );
+    }
+	//--------------------------------------------------------
+    public function emailTemplate($name)
+    {
+        return view( 'core::emails.'.$name );
+    }
+	//--------------------------------------------------------
 	//--------------------------------------------------------
 	//--------------------------------------------------------
 	//--------------------------------------------------------

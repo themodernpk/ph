@@ -39,6 +39,7 @@
 <script src="{{assetsCoreMmenu()}}/js/Section/Menubar.js"></script>
 <script src="{{assetsCoreMmenu()}}/js/Section/Sidebar.js"></script>
 <script src="{{assetsCoreMmenu()}}/js/Section/PageAside.js"></script>
+<script src="{{assetsCoreMmenu()}}/js/Section/GridMenu.js"></script>
 
 <!-- Config -->
 <script src="{{assetsCoreGlobal()}}/js/config/colors.js"></script>

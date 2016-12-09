@@ -12,7 +12,8 @@
     "files": [
         "start.php"
     ],
-    "version": "0.0.0.1",
+    "version": "0.1",
+    "version_release": "2016-12-10",
     "settings": {
         "records_per_page": 25
     }

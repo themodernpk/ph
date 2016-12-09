@@ -1,11 +1,15 @@
 <?php
 namespace Modules\Core\Entities;
 
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
 use Modules\Core\Entities\Premission;
+use Modules\Core\Events\UserLoggedIn;
 
 class User extends Authenticatable
 {
@@ -188,6 +192,37 @@ class User extends Authenticatable
     }
 
     //-------------------------------------------------
+    public static function findByUsername($username, $columns = array('*'))
+    {
+        if ( ! is_null($user = static::whereUsername($username)->first($columns))) {
+            return $user;
+        } else
+        {
+            return false;
+        }
+
+    }
+    //-------------------------------------------------
+    public static function findByEmail($email, $columns = array('*'))
+    {
+        if ( ! is_null($user = static::whereEmail($email)->first($columns))) {
+            return $user;
+        }else
+        {
+            return false;
+        }
+    }
+    //-------------------------------------------------
+    public static function findByMobile($mobile, $columns = array('*'))
+    {
+        if ( ! is_null($user = static::whereMobile($mobile)->first($columns))) {
+            return $user;
+        }else
+        {
+            return false;
+        }
+    }
+    //-------------------------------------------------
     public function roles()
     {
         return $this->belongsToMany('Modules\Core\Entities\Role',
@@ -295,6 +330,61 @@ class User extends Authenticatable
     }
 
     //-------------------------------------------------
+    public static function login($request)
+    {
+        $rules = array(
+            'email' => 'required|email',
+            'password' => 'required',
+        );
+        $validator = \Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+        {
+            $errors = $validator->errors();
+            $response['status'] = 'failed';
+            $response['errors'] = $errors;
+            return $response;
+        }
+
+        $remember = false;
+        if ($request->get("remember") == "on") {
+            $remember = true;
+        }
+
+        $redirect = $request->input('redirect_url', \URL::route('core.backend.dashboard'));
+        if (Auth::attempt(['email' => $request->get('email'),
+                            'password' => $request->get('password')
+                          ], $remember))
+        {
+            $user = Auth::user();
+
+            //check user is active
+            if($user->enable == 0)
+            {
+                $response['status'] = 'failed';
+                $response['errors'][] = getConstant('account.disabled');
+                return $response;
+            }
+
+            if (!Auth::user()->hasPermission('core', 'backend-login')) {
+                $response['status'] = 'failed';
+                $response['errors'][] = getConstant('permission.denied');
+                return $response;
+            }
+                //fire the event
+                event(new UserLoggedIn(Auth::user()));
+                $response['status'] = 'success';
+                $response['data'] = Auth::user();
+                $response['redirect'] = $redirect;
+                return $response;
+
+        } else {
+            $response['status'] = 'failed';
+            $response['errors'][] = getConstant('credentials.invalid');
+            return $response;
+        }
+
+    }
     //-------------------------------------------------
     public function hasRole($role_slug)
     {

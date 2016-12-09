@@ -22,7 +22,7 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $this->data->session = session()->all();
-        $this->data->body_class = "animsition page-login-v3 layout-full";
+        $this->data->body_class = "animsition page-login-v3 layout-full site-menubar-fold";
         return view('core::frontend.login')->with('data', $this->data);
     }
 

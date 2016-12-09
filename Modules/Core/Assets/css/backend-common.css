@@ -156,7 +156,9 @@
     text-decoration: none !important;
 }
 
-
+.alertify, .alertify-cover, .alertify-logs {
+    z-index: 99999;
+}
 
 .form-group .text-help
 {

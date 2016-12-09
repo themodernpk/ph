@@ -5,10 +5,17 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
+use Modules\Core\Entities\SmsAlert;
 use Modules\Core\Entities\User;
 use Modules\Core\Entities\Role;
+use Modules\Core\Emails\AdminWelcomeEmail;
+
 use Modules\Core\Events\UserCreated;
+use Modules\Core\Notifications\UserDisabled;
 use Validator;
+
 
 class UsersController extends Controller {
 	//------------------------------------------------------
@@ -29,6 +36,14 @@ class UsersController extends Controller {
 
 	//------------------------------------------------------
 	public function index() {
+
+
+
+	    $user = User::first();
+
+        Notification::send($user, new UserDisabled($user));
+        die("<hr/>line number=123");
+
 
 		if ( ! \Auth::user()->hasPermission( $this->data->permission->prefix,
 			$this->data->permission->pretext . "read" )
@@ -94,6 +109,9 @@ class UsersController extends Controller {
                 //----------------------
 
             }
+        } else
+        {
+            $list->orderBy('created_at', 'DESC');
         }
         //------------end of shorted by
 
@@ -150,7 +168,6 @@ class UsersController extends Controller {
 	public function store( Request $request )
 	{
 
-
 		//verify the permission
 		if ( ! \Auth::user()->hasPermission( $this->data->permission->prefix,
 			$this->data->permission->pretext . "create" )
@@ -172,7 +189,7 @@ class UsersController extends Controller {
 			'email' => 'required|email|unique:core_users|max:255',
 			'username' => 'without_spaces|unique:core_users|max:20',
 			'mobile' => 'unique:core_users',
-			'password' => 'required|min:8',
+			'password' => 'required|min:8'
 		);
 
 		$messages = array(
@@ -202,7 +219,7 @@ class UsersController extends Controller {
             $fillable['password'] = Hash::make( $fillable['password'] );
         }
 
-		try {
+        try {
 			$user = User::create($fillable);
 
             //fire the event
@@ -217,7 +234,9 @@ class UsersController extends Controller {
 
             event(new UserCreated($event));
 
-			$response['data'] = $user;
+
+
+            $response['data'] = $user;
 			$response['status'] = 'success';
 		} catch ( Exception $e ) {
 			$response['status']   = 'failed';

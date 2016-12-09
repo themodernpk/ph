@@ -22,8 +22,11 @@ Route::group(
 		Route::get( '/ui', 'CoreController@ui' )
 		     ->name( 'core.frontend.ui' );
 		//------------------------------------------------
-		Route::get( '/test', 'CoreController@test' )
-		     ->name( 'core.frontend.test' );
+        Route::get( '/test', 'CoreController@test' )
+            ->name( 'core.frontend.test' );
+		//------------------------------------------------
+		Route::get( '/doc', 'CoreController@doc' )
+		     ->name( 'core.frontend.doc' );
 		//------------------------------------------------
 		Route::any( '/register/store', 'UserController@store' )
 		     ->name( 'core.frontend.register.store' )
@@ -41,6 +44,8 @@ Route::group(
 		     ->name( 'core.backend.logout' )
 		     ->middleware( [ 'core.backend' ] );
 		//------------------------------------------------
+        Route::any( '/email/templates/{name}', 'CoreController@emailTemplate' )
+            ->name( 'core.backend.email.template' );
 		//------------------------------------------------
 		//------------------------------------------------
 	} );

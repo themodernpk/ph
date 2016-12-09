@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{assetsCoreMmenu()}}/css/site.min.css">
     <!-- Plugins -->
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/animsition/animsition.css">
+    <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/asscrollable/asScrollable.css">
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/switchery/switchery.css">
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/intro-js/introjs.css">
     <link rel="stylesheet" href="{{assetsCoreGlobalVendor()}}/slidepanel/slidePanel.css">

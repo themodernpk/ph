@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => 'Pharneechar',
 
     /*
     |--------------------------------------------------------------------------
@@ -38,7 +38,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Kolkata',
 
     /*
     |--------------------------------------------------------------------------
@@ -171,6 +171,10 @@ return [
 	    Nwidart\Modules\LaravelModulesServiceProvider::class,
 	    Creativeorange\Gravatar\GravatarServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Ixudra\Curl\CurlServiceProvider::class,
+        Bogardo\Mailgun\MailgunServiceProvider::class,
+        Fedeisas\LaravelMailCssInliner\LaravelMailCssInlinerServiceProvider::class,
+        NotificationChannels\PusherPushNotifications\PusherPushNotificationsServiceProvider::class,
 
 	    Modules\Core\Providers\CoreServiceProvider::class,
 	    Modules\Core\Providers\CoreEventServiceProvider::class,
@@ -241,6 +245,8 @@ return [
 	    //Custom
         'NwidartModule' => Nwidart\Modules\Facades\Module::class,
         'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
+        'Curl' => Ixudra\Curl\Facades\Curl::class,
+        'Mailgun' => Bogardo\Mailgun\Facades\Mailgun::class,
 
     ],
 

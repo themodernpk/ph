@@ -2,11 +2,16 @@
 
 namespace Modules\Core\Events;
 
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class UserLoggedIn
+class UserLoggedIn implements ShouldBroadcast
 {
-    use SerializesModels;
+    use InteractsWithSockets, SerializesModels;
 	public $user;
 
     /**
@@ -26,6 +31,6 @@ class UserLoggedIn
      */
     public function broadcastOn()
     {
-        return [];
+        return new PrivateChannel('user.loggedin');
     }
 }

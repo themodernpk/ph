@@ -11,7 +11,15 @@
         "barryvdh/laravel-ide-helper": "^2.2",
         "nwidart/laravel-modules": "dev-master",
         "creativeorange/gravatar": "~1.0",
-        "spatie/laravel-permission": "^1.5"
+        "spatie/laravel-permission": "^1.5",
+        "ixudra/curl": "^6.6",
+        "doctrine/dbal": "^2.5",
+        "guzzlehttp/guzzle": "^6.2",
+        "bogardo/mailgun": "^5.0",
+        "php-http/guzzle6-adapter": "^1.1",
+        "fedeisas/laravel-mail-css-inliner": "~1.5",
+        "laravel-notification-channels/pusher-push-notifications": "^1.0",
+        "pusher/pusher-php-server": "^2.6"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
